@@ -152,4 +152,12 @@ public class UnderscoreString {
     private static String replace(String sentence, char from, char to) {
         return CharMatcher.anyOf(String.valueOf(from)).replaceFrom(sentence, to);
     }
+
+    public static String surround(String word) {
+        return surround(word, "\"");
+    }
+
+    public static String surround(String word, String wrap) {
+        return String.format("%s%s%s", wrap, word, wrap);
+    }
 }

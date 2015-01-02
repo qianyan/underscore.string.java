@@ -155,6 +155,13 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.humanize("the humanize_id string method"), is("The humanize id string method"));
     }
 
+    @Test
+    public void surround() throws Exception {
+        assertThat(UnderscoreString.surround("'"), is("\"'\""));
+        assertThat(UnderscoreString.surround("foo", "|"), is("|foo|"));
+        assertThat(UnderscoreString.surround("foo", ""), is("foo"));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
