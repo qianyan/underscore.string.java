@@ -1,0 +1,18 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    guavaVersion = '18.0'
+    mockitoVersion = '1.9.5'
+    junitVersion = '4.11'
+}
+
+dependencies {
+    compile ("com.google.guava:guava:$guavaVersion")
+    testCompile ("junit:junit:$junitVersion", "org.mockito:mockito-core:$mockitoVersion")
+}
+
