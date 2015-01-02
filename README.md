@@ -27,3 +27,13 @@ string manipulation operations in java
 - [x] underscored
 - [x] classify
 - [x] humanize
+- [] quote
+- [] unquote
+- [] surround
+- [] numberFormat
+- [] strRight
+- [] strRightBack
+- [] strLeft
+- [] strLeftBack
+- [] toSentence
+- [] toSentenceSerial
