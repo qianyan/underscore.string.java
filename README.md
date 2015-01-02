@@ -27,9 +27,9 @@ string manipulation operations in java
 - [x] underscored
 - [x] classify
 - [x] humanize
-- [ ] quote
-- [ ] unquote
-- [ ] surround
+- [x] quote
+- [x] unquote
+- [x] surround
 - [ ] numberFormat
 - [ ] strRight
 - [ ] strRightBack
