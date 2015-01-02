@@ -157,9 +157,22 @@ public class UnderscoreStringTest {
 
     @Test
     public void surround() throws Exception {
-        assertThat(UnderscoreString.surround("'"), is("\"'\""));
+        assertThat(UnderscoreString.surround("'", "\""), is("\"'\""));
         assertThat(UnderscoreString.surround("foo", "|"), is("|foo|"));
         assertThat(UnderscoreString.surround("foo", ""), is("foo"));
+    }
+
+    @Test
+    public void quote() throws Exception {
+        assertThat(UnderscoreString.quote("foo"), is("\"foo\""));
+        assertThat(UnderscoreString.quote("\"foo\""), is("\"\"foo\"\""));
+    }
+
+    @Test
+    public void unquote() throws Exception {
+        assertThat(UnderscoreString.unquote("\"foo\""), is("foo"));
+        assertThat(UnderscoreString.unquote("\"\"foo\"\""), is("\"foo\""));
+        assertThat(UnderscoreString.unquote("'foo'", '\''), is("foo"));
     }
 
     @SafeVarargs

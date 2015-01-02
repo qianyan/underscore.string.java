@@ -153,11 +153,22 @@ public class UnderscoreString {
         return CharMatcher.anyOf(String.valueOf(from)).replaceFrom(sentence, to);
     }
 
-    public static String surround(String word) {
+    public static String surround(String word, String wrap) {
+        return String.format("%s%s%s", wrap, word, wrap);
+    }
+
+    public static String quote(String word) {
         return surround(word, "\"");
     }
 
-    public static String surround(String word, String wrap) {
-        return String.format("%s%s%s", wrap, word, wrap);
+    public static String unquote(String word) {
+        return unquote(word, '"');
+    }
+
+    public static String unquote(String word, char match) {
+        if (word.charAt(0) == match && word.charAt(word.length() - 1) == match) {
+            return word.substring(1, word.length() - 1);
+        }
+        return word;
     }
 }
