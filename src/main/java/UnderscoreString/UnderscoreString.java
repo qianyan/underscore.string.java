@@ -181,4 +181,8 @@ public class UnderscoreString {
     public static String numberFormat(double number, int scale) {
         return NumberFormat.getInstance().format(new BigDecimal(number).setScale(scale, 3));
     }
+
+    public static String strRight(String sentence, String separator) {
+        return sentence.substring(sentence.indexOf(separator) + separator.length());
+    }
 }
