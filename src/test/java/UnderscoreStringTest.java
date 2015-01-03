@@ -207,6 +207,14 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.strLeft("This_is_a_test_string", "-"), is("This_is_a_test_string"));
     }
 
+    @Test
+    public void strLeftBack() throws Exception {
+        assertThat(UnderscoreString.strLeftBack("This_is_a_test_string", "_"), is("This_is_a_test"));
+        assertThat(UnderscoreString.strLeftBack("This_is_a_test_string", "This"), is(""));
+        assertThat(UnderscoreString.strLeftBack("This_is_a_test_string", ""), is("This_is_a_test_string"));
+        assertThat(UnderscoreString.strLeftBack("This_is_a_test_string", "-"), is("This_is_a_test_string"));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;

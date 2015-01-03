@@ -34,6 +34,6 @@ string manipulation operations in java
 - [x] strRight
 - [x] strRightBack
 - [x] strLeft
-- [ ] strLeftBack
+- [x] strLeftBack
 - [ ] toSentence
 - [ ] toSentenceSerial

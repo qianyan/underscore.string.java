@@ -131,10 +131,6 @@ public class UnderscoreString {
         return cleanBy(to, '-');
     }
 
-    private static String upperBy_(String sentence) {
-        return Joiner.on('_').join(Splitter.on(BEFORE_UPPER_CASE).split(sentence));
-    }
-
     public static String underscored(String sentence) {
         String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_UNDERSCORE, CharMatcher.anyOf("- ").collapseFrom((upperBy_(trim(sentence))), '_'));
         return cleanBy(to, '_');
@@ -146,14 +142,6 @@ public class UnderscoreString {
 
     public static String humanize(String sentence) {
         return capitalize(replace(underscored(sentence), '_', ' '));
-    }
-
-    private static String cleanBy(String to, char underscore) {
-        return CharMatcher.anyOf(String.valueOf(underscore)).collapseFrom(to, underscore);
-    }
-
-    private static String replace(String sentence, char from, char to) {
-        return CharMatcher.anyOf(String.valueOf(from)).replaceFrom(sentence, to);
     }
 
     public static String surround(String word, String wrap) {
@@ -198,8 +186,26 @@ public class UnderscoreString {
         if (isNullOrEmpty(separator)) {
             return sentence;
         }
+        return strLeftFrom(sentence, sentence.indexOf(separator));
+    }
 
-        int index = sentence.indexOf(separator);
+    public static String strLeftBack(String sentence, String separator) {
+        return strLeftFrom(sentence, sentence.lastIndexOf(separator));
+    }
+
+    private static String strLeftFrom(String sentence, int index) {
         return index != -1 ? sentence.substring(0, index) : sentence;
+    }
+
+    private static String cleanBy(String to, char underscore) {
+        return CharMatcher.anyOf(String.valueOf(underscore)).collapseFrom(to, underscore);
+    }
+
+    private static String replace(String sentence, char from, char to) {
+        return CharMatcher.anyOf(String.valueOf(from)).replaceFrom(sentence, to);
+    }
+
+    private static String upperBy_(String sentence) {
+        return Joiner.on('_').join(Splitter.on(BEFORE_UPPER_CASE).split(sentence));
     }
 }
