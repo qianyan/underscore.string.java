@@ -215,6 +215,14 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.strLeftBack("This_is_a_test_string", "-"), is("This_is_a_test_string"));
     }
 
+    @Test
+    public void toSentence() throws Exception {
+        assertThat(UnderscoreString.toSentence(_a("Hello", "Welcome")), is("Hello and Welcome"));
+        assertThat(UnderscoreString.toSentence(_a("Hello", "Welcome", "good morning")), is("Hello, Welcome and good morning"));
+        assertThat(UnderscoreString.toSentence(_a("Hello", "Welcome", "good morning", "good morning")),
+                is("Hello, Welcome, good morning and good morning"));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;

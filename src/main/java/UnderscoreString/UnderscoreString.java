@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.regex.Pattern;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.toArray;
 
@@ -207,5 +208,13 @@ public class UnderscoreString {
 
     private static String upperBy_(String sentence) {
         return Joiner.on('_').join(Splitter.on(BEFORE_UPPER_CASE).split(sentence));
+    }
+
+    public static String toSentence(String[] strings) {
+        checkNotNull(strings, "words should not be null");
+
+        String lastOne = strings[strings.length - 1];
+        strings[strings.length - 1] = null;
+        return Joiner.on(", ").skipNulls().join(strings) + " and " + lastOne;
     }
 }
