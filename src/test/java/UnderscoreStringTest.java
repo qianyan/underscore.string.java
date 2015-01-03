@@ -175,6 +175,14 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.unquote("'foo'", '\''), is("foo"));
     }
 
+    @Test
+    public void numberFormat() throws Exception {
+        assertThat(UnderscoreString.numberFormat(9000), is("9,000"));
+        assertThat(UnderscoreString.numberFormat(9000, 0), is("9,000"));
+        assertThat(UnderscoreString.numberFormat(1000000.754, 2), is("1,000,000.75"));
+        assertThat(UnderscoreString.numberFormat(1000000.756, 2), is("1,000,000.75"));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;

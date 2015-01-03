@@ -2,6 +2,8 @@ package UnderscoreString;
 
 import com.google.common.base.*;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.regex.Pattern;
 
 import static com.google.common.collect.Iterables.toArray;
@@ -170,5 +172,13 @@ public class UnderscoreString {
             return word.substring(1, word.length() - 1);
         }
         return word;
+    }
+
+    public static String numberFormat(double number) {
+        return numberFormat(number, 0);
+    }
+
+    public static String numberFormat(double number, int scale) {
+        return NumberFormat.getInstance().format(new BigDecimal(number).setScale(scale, 3));
     }
 }

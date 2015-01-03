@@ -30,7 +30,7 @@ string manipulation operations in java
 - [x] quote
 - [x] unquote
 - [x] surround
-- [ ] numberFormat
+- [x] numberFormat
 - [ ] strRight
 - [ ] strRightBack
 - [ ] strLeft
