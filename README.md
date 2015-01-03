@@ -32,7 +32,7 @@ string manipulation operations in java
 - [x] surround
 - [x] numberFormat
 - [x] strRight
-- [ ] strRightBack
+- [x] strRightBack
 - [ ] strLeft
 - [ ] strLeftBack
 - [ ] toSentence

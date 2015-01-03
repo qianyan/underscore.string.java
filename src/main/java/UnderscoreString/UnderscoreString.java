@@ -185,4 +185,11 @@ public class UnderscoreString {
     public static String strRight(String sentence, String separator) {
         return sentence.substring(sentence.indexOf(separator) + separator.length());
     }
+
+    public static String strRightBack(String sentence, String separator) {
+        if(Strings.isNullOrEmpty(separator)) {
+            return sentence;
+        }
+        return sentence.substring(sentence.lastIndexOf(separator) + separator.length());
+    }
 }
