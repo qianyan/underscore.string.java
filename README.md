@@ -33,7 +33,7 @@ string manipulation operations in java
 - [x] numberFormat
 - [x] strRight
 - [x] strRightBack
-- [ ] strLeft
+- [x] strLeft
 - [ ] strLeftBack
 - [ ] toSentence
 - [ ] toSentenceSerial

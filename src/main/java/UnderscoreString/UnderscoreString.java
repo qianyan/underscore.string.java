@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.regex.Pattern;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.toArray;
 
 public class UnderscoreString {
@@ -187,9 +188,18 @@ public class UnderscoreString {
     }
 
     public static String strRightBack(String sentence, String separator) {
-        if(Strings.isNullOrEmpty(separator)) {
+        if (isNullOrEmpty(separator)) {
             return sentence;
         }
         return sentence.substring(sentence.lastIndexOf(separator) + separator.length());
+    }
+
+    public static String strLeft(String sentence, String separator) {
+        if (isNullOrEmpty(separator)) {
+            return sentence;
+        }
+
+        int index = sentence.indexOf(separator);
+        return index != -1 ? sentence.substring(0, index) : sentence;
     }
 }
