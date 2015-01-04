@@ -9,6 +9,7 @@ string manipulation operations in java
 ##support
 - [x] capitalize
 - [x] slugify
+- [x] count
 - [x] trim
 - [x] ltrim
 - [x] rtrim

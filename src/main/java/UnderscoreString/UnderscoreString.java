@@ -217,4 +217,10 @@ public class UnderscoreString {
         strings[strings.length - 1] = null;
         return Joiner.on(", ").skipNulls().join(strings) + " and " + lastOne;
     }
+
+    public static int count(String sentence, String find) {
+        int nonReplacedLength = sentence.length();
+        int length = sentence.replace(find, "").length();
+        return (nonReplacedLength - length) / find.length();
+    }
 }

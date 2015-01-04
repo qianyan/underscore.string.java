@@ -16,6 +16,12 @@ public class UnderscoreStringTest {
     }
 
     @Test
+    public void count() throws Exception {
+        assertThat(UnderscoreString.count("Hello world", "l"), is(3));
+        assertThat(UnderscoreString.count("Hello world", "Hello"), is(1));
+    }
+
+    @Test
     public void trim() throws Exception {
         assertThat(UnderscoreString.trim(" foo "), is("foo"));
         assertThat(UnderscoreString.trim("foo", "f"), is("oo"));
