@@ -7,6 +7,7 @@ import java.text.NumberFormat;
 import java.util.regex.Pattern;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.toArray;
 
@@ -222,5 +223,10 @@ public class UnderscoreString {
         int nonReplacedLength = sentence.length();
         int length = sentence.replace(find, "").length();
         return (nonReplacedLength - length) / find.length();
+    }
+
+    public static String truncate(String sentence, int position, String pad) {
+        checkState(sentence.length() >= position);
+        return splice(sentence, position, sentence.length() - position + 1, pad);
     }
 }

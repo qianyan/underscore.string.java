@@ -37,3 +37,4 @@ string manipulation operations in java
 - [x] strLeft
 - [x] strLeftBack
 - [x] toSentence
+- [x] truncate

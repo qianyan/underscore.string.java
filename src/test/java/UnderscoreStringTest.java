@@ -229,6 +229,12 @@ public class UnderscoreStringTest {
                 is("Hello, Welcome, good morning and good morning"));
     }
 
+    @Test
+    public void truncate() throws Exception {
+        assertThat(UnderscoreString.truncate("Hello World", 5, "..."), is("Hello..."));
+        assertThat(UnderscoreString.truncate("Hello", 5, ""), is("Hello"));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
