@@ -235,6 +235,14 @@ public class UnderscoreString {
     }
 
     public static String lpad(String sentence, int count, char ch) {
-        return Strings.padStart(sentence, sentence.length() + count, ch);
+        return Strings.padStart(sentence, count, ch);
+    }
+
+    public static String rpad(String sentence, int count) {
+        return rpad(sentence, count, ' ');
+    }
+
+    public static String rpad(String sentence, int count, char ch) {
+        return Strings.padEnd(sentence, count, ch);
     }
 }

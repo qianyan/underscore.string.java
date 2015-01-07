@@ -237,8 +237,14 @@ public class UnderscoreStringTest {
 
     @Test
     public void lpad() throws Exception {
-        assertThat(UnderscoreString.lpad("Hello", 3), is("   Hello"));
-        assertThat(UnderscoreString.lpad("Hello", 3, '-'), is("---Hello"));
+        assertThat(UnderscoreString.lpad("Hello", 8), is("   Hello"));
+        assertThat(UnderscoreString.lpad("Hello", 8, '-'), is("---Hello"));
+    }
+
+    @Test
+    public void rpad() throws Exception {
+        assertThat(UnderscoreString.rpad("Hello", 8), is("Hello   "));
+        assertThat(UnderscoreString.rpad("Hello", 8, '-'), is("Hello---"));
     }
 
     @SafeVarargs

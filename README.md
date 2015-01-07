@@ -39,3 +39,4 @@ string manipulation operations in java
 - [x] toSentence
 - [x] truncate
 - [x] lpad
+- [x] rpad
