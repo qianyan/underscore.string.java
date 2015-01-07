@@ -40,3 +40,4 @@ string manipulation operations in java
 - [x] truncate
 - [x] lpad
 - [x] rpad
+- [x] lrpad

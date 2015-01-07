@@ -245,4 +245,13 @@ public class UnderscoreString {
     public static String rpad(String sentence, int count, char ch) {
         return Strings.padEnd(sentence, count, ch);
     }
+
+    public static String lrpad(String sentence, int count) {
+        return lrpad(sentence, count, ' ');
+    }
+
+    public static String lrpad(String sentence, int count, char ch) {
+        int padEnd = (count - sentence.length()) / 2;
+        return rpad(lpad(sentence, count - padEnd, ch), count, ch);
+    }
 }

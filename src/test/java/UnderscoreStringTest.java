@@ -247,6 +247,12 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.rpad("Hello", 8, '-'), is("Hello---"));
     }
 
+    @Test
+    public void lrpad() throws Exception {
+        assertThat(UnderscoreString.lrpad("1", 8), is("    1   "));
+        assertThat(UnderscoreString.lrpad("1", 8,'-'), is("----1---"));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
