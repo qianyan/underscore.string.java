@@ -229,4 +229,12 @@ public class UnderscoreString {
         checkState(sentence.length() >= position);
         return splice(sentence, position, sentence.length() - position + 1, pad);
     }
+
+    public static String lpad(String sentence, int count) {
+        return lpad(sentence, count, ' ');
+    }
+
+    public static String lpad(String sentence, int count, char ch) {
+        return Strings.padStart(sentence, sentence.length() + count, ch);
+    }
 }

@@ -38,3 +38,4 @@ string manipulation operations in java
 - [x] strLeftBack
 - [x] toSentence
 - [x] truncate
+- [x] lpad

@@ -235,6 +235,12 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.truncate("Hello", 5, ""), is("Hello"));
     }
 
+    @Test
+    public void lpad() throws Exception {
+        assertThat(UnderscoreString.lpad("Hello", 3), is("   Hello"));
+        assertThat(UnderscoreString.lpad("Hello", 3, '-'), is("---Hello"));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
