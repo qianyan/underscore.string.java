@@ -1,6 +1,7 @@
 package UnderscoreString;
 
 import com.google.common.base.*;
+import com.google.common.collect.Iterables;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
@@ -253,5 +254,9 @@ public class UnderscoreString {
     public static String lrpad(String sentence, int count, char ch) {
         int padEnd = (count - sentence.length()) / 2;
         return rpad(lpad(sentence, count - padEnd, ch), count, ch);
+    }
+
+    public static String[] words(String sentence) {
+        return Iterables.toArray(Splitter.on(CharMatcher.WHITESPACE).split(CharMatcher.anyOf(" _-").collapseFrom(sentence, ' ')), String.class);
     }
 }

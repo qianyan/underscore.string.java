@@ -41,3 +41,4 @@ string manipulation operations in java
 - [x] lpad
 - [x] rpad
 - [x] lrpad
+- [x] words

@@ -253,6 +253,15 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.lrpad("1", 8,'-'), is("----1---"));
     }
 
+    @Test
+    public void words() throws Exception {
+        assertThat(UnderscoreString.words("I love you!"), is(_a("I", "love", "you!")));
+        assertThat(UnderscoreString.words("I    love   you!"), is(_a("I", "love", "you!")));
+        assertThat(UnderscoreString.words("I_love_you!"), is(_a("I", "love", "you!")));
+        assertThat(UnderscoreString.words("I-love-you!"), is(_a("I", "love", "you!")));
+        assertThat(UnderscoreString.words("I--love--you!"), is(_a("I", "love", "you!")));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
