@@ -262,6 +262,18 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.words("I--love--you!"), is(_a("I", "love", "you!")));
     }
 
+    @Test
+    public void prune() throws Exception {
+        assertThat(UnderscoreString.prune("hello, world", 5), is("hello..."));
+        assertThat(UnderscoreString.prune("hello, world", 13), is("hello, world"));
+        assertThat(UnderscoreString.prune("hello, world world", 17), is("hello, world..."));
+        assertThat(UnderscoreString.prune("hello, world", 8), is("hello..."));
+        assertThat(UnderscoreString.prune("hello, world", 13), is("hello, world"));
+        assertThat(UnderscoreString.prune("hello, welcome to world", 14), is("hello, welcome..."));
+        assertThat(UnderscoreString.prune("Hello, cruel world", 15), is("Hello, cruel..."));
+        assertThat(UnderscoreString.prune("Hellocruelworld", 5), is("Hellocruelworld"));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;

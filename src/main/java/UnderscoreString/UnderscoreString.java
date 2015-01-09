@@ -259,4 +259,30 @@ public class UnderscoreString {
     public static String[] words(String sentence) {
         return Iterables.toArray(Splitter.on(CharMatcher.WHITESPACE).split(CharMatcher.anyOf(" _-").collapseFrom(sentence, ' ')), String.class);
     }
+
+    public static String prune(String sentence, int count) {
+        if (sentence.length() <= count) {
+            return sentence;
+        }
+        String[] words = words(sentence);
+        if (words.length == 1) {
+            return sentence;
+        }
+
+        int rest = count;
+        for (int i = 0; i < words.length; i++) {
+            rest = i == 0 ? rest - words[i].length() : rest - words[i].length() - 1;//backspace
+            if (rest < 0) {
+                if (i == 0) {
+                    return rtrim(words[i], ",") + "...";
+                }
+
+                words[i - 1] = rtrim(words[i - 1], ",") + "...";
+                String[] target = new String[i];
+                System.arraycopy(words, 0, target, 0, i);
+                return Joiner.on(' ').join(target);
+            }
+        }
+        return sentence;
+    }
 }
