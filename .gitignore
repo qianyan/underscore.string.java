@@ -1,7 +1,7 @@
 out
 build/
 .idea
-gradle
+.gradle
 underscore.string.java.iml
 underscore.string.java.ipr
 underscore.string.java.iws
