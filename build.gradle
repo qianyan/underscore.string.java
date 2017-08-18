@@ -1,9 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'signing'
+apply plugin: 'maven'
 
 repositories {
     mavenCentral()
 }
+
+group = 'com.lambeta'
+version = '0.0.1-SNAPSHOT'
 
 ext {
     guavaVersion = '18.0'
@@ -16,3 +21,79 @@ dependencies {
     testCompile ("junit:junit:$junitVersion", "org.mockito:mockito-core:$mockitoVersion")
 }
 
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+                authentication(userName: sonatypeUsername, password: sonatypePassword)
+            }
+
+            pom.project {
+                name project.name
+                packaging 'jar'
+                description 'underscore string in java'
+                url 'https://github.com/qianyan/underscore.string.java'
+
+                scm {
+                    url 'https://github.com/qianyan/underscore.string.java'
+                    connection 'https://github.com/qianyan/underscore.string.java.git'
+                    developerConnection 'git@github.com:qianyan/underscore.string.java.git'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT Licence'
+                        url 'https://raw.githubusercontent.com/qianyan/underscore.string.java/master/LICENSE'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'lambeta'
+                        name 'Yan Qian'
+                    }
+                }
+            }
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Package': "com.github.qianyan",
+                   'Implementation-Title': "${project.name}",
+                   'Implementation-Version': "${version}",
+                   'Implementation-Vendor': 'Yan Qian',
+                   'Built-By': 'Yan Qian',
+                   'Built-Date': new Date().getDateTimeString(),
+                   'Built-With': "gradle-${project.getGradle().getGradleVersion()}, groovy-${GroovySystem.getVersion()}",
+                   'Created-By': 'Java ' + System.getProperty('java.version') + ' (' + System.getProperty('java.vendor') + ')'
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+} 
+
+artifacts {
+    archives jar
+    archives sourcesJar
+}
+
+signing {
+    required { gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-Xlint:unchecked"
+    options.compilerArgs << "-Xlint:deprecation"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
+}

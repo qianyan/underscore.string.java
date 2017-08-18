@@ -1,12 +1,13 @@
 underscore.string.java
-======================
+[![Build Status](https://travis-ci.org/qianyan/underscore.string.java.svg?branch=master)](https://travis-ci.org/qianyan/underscore.string.java)
+===
 
 string manipulation operations in java
 
 * java >=1.6
 * guava 18.0
 
-##support
+## functionality supported
 - [x] capitalize
 - [x] slugify
 - [x] count

@@ -1,4 +1,4 @@
-package UnderscoreString;
+package com.lambeta;
 
 import com.google.common.base.*;
 import com.google.common.collect.Iterables;

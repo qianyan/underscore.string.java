@@ -1,3 +1,5 @@
+package com.lambeta;
+
 import com.google.common.base.MoreObjects;
 
 public class Person {

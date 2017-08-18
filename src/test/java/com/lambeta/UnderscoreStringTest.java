@@ -1,4 +1,5 @@
-import UnderscoreString.UnderscoreString;
+package com.lambeta;
+
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
