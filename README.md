@@ -3,12 +3,26 @@ underscore.string.java
 [![CircleCI](https://circleci.com/gh/qianyan/underscore.string.java.svg?style=shield)](https://circleci.com/gh/qianyan/underscore.string.java)
 ===
 
-string manipulation operations in java
-
+A library for Java String manipulation
+## Prerequisites
 * java >=1.6
 * guava 18.0
 
-## functionality supported
+## Installation
+### gradle
+```groovy
+repositories {
+    maven {
+        url 'https://oss.sonatype.org/content/groups/public'
+    }
+}
+
+dependencies {
+    compile ("com.lambeta:underscore.string.java:0.0.1-SNAPSHOT")
+}
+```
+
+## Supported features
 - [x] capitalize
 - [x] slugify
 - [x] count
