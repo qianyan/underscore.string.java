@@ -59,3 +59,4 @@ dependencies {
 - [x] lrpad
 - [x] words
 - [x] prune
+- [x] isBlank

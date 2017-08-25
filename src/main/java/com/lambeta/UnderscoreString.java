@@ -285,4 +285,8 @@ public class UnderscoreString {
         }
         return sentence;
     }
+
+    public static boolean isBlank(String s) {
+        return Strings.isNullOrEmpty(s) || CharMatcher.WHITESPACE.matchesAllOf(s);
+    }
 }

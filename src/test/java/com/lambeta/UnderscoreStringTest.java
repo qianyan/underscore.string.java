@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class UnderscoreStringTest {
     @Test
@@ -273,6 +275,16 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.prune("hello, welcome to world", 14), is("hello, welcome..."));
         assertThat(UnderscoreString.prune("Hello, cruel world", 15), is("Hello, cruel..."));
         assertThat(UnderscoreString.prune("Hellocruelworld", 5), is("Hellocruelworld"));
+    }
+
+    @Test
+    public void isBlank() throws Exception {
+        assertTrue(UnderscoreString.isBlank(""));
+        assertTrue(UnderscoreString.isBlank("  "));
+        assertTrue(UnderscoreString.isBlank("\n"));
+        assertTrue(UnderscoreString.isBlank(null));
+        assertFalse(UnderscoreString.isBlank("a"));
+        assertFalse(UnderscoreString.isBlank(" a b "));
     }
 
     @SafeVarargs
