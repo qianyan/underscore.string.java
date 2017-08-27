@@ -60,3 +60,9 @@ dependencies {
 - [x] words
 - [x] prune
 - [x] isBlank
+- [x] replaceAll
+- [ ] swapCase
+- [ ] wrap
+- [ ] naturalSort
+- [ ] naturalCmp
+- [ ] dedent

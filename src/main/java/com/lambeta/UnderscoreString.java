@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.collect.Iterables.toArray;
 
 public class UnderscoreString {
@@ -288,5 +289,14 @@ public class UnderscoreString {
 
     public static boolean isBlank(String s) {
         return Strings.isNullOrEmpty(s) || CharMatcher.WHITESPACE.matchesAllOf(s);
+    }
+
+    public static String replaceAll(String str, String find, String replace) {
+        return replaceAll(str, find, replace, false);
+    }
+
+    public static String replaceAll(String str, String find, String replace, boolean ignorecase) {
+        String findRegex = ignorecase ? "(?i)" + find : find;
+        return Pattern.compile(findRegex).matcher(nullToEmpty(str)).replaceAll(replace);
     }
 }

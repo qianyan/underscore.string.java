@@ -287,6 +287,21 @@ public class UnderscoreStringTest {
         assertFalse(UnderscoreString.isBlank(" a b "));
     }
 
+    @Test
+    public void replaceAll() throws Exception {
+        assertThat(UnderscoreString.replaceAll("a", "a", "b"), is("b"));
+        assertThat(UnderscoreString.replaceAll("aa", "a", "b"), is("bb"));
+        assertThat(UnderscoreString.replaceAll("aca", "a", "b"), is("bcb"));
+        assertThat(UnderscoreString.replaceAll("ccc", "a", "b"), is("ccc"));
+        assertThat(UnderscoreString.replaceAll("AAa", "a", "b"), is("AAb"));
+        assertThat(UnderscoreString.replaceAll("Aa", "a", "b", true), is("bb"));
+        assertThat(UnderscoreString.replaceAll("foo bar foo", "foo", "moo"), is("moo bar moo"));
+        assertThat(UnderscoreString.replaceAll("foo bar\n foo", "foo", "moo"), is("moo bar\n moo"));
+        assertThat(UnderscoreString.replaceAll("foo bar FoO", "foo", "moo", true), is("moo bar moo"));
+        assertThat(UnderscoreString.replaceAll("", "a", "b"), is(""));
+        assertThat(UnderscoreString.replaceAll(null, "a", "b"), is(""));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
