@@ -61,7 +61,7 @@ dependencies {
 - [x] prune
 - [x] isBlank
 - [x] replaceAll
-- [ ] swapCase
+- [x] swapCase
 - [ ] wrap
 - [ ] naturalSort
 - [ ] naturalCmp

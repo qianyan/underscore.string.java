@@ -2,15 +2,19 @@ package com.lambeta;
 
 import com.google.common.base.*;
 import com.google.common.collect.Iterables;
+import com.google.common.primitives.Chars;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.regex.Pattern;
 
+import static com.google.common.base.Joiner.on;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Strings.nullToEmpty;
+import static com.google.common.collect.FluentIterable.from;
 import static com.google.common.collect.Iterables.toArray;
 
 public class UnderscoreString {
@@ -77,7 +81,7 @@ public class UnderscoreString {
     }
 
     public static String join(String... args) {
-        return Joiner.on("").skipNulls().join(args);
+        return on("").skipNulls().join(args);
     }
 
     public static String reverse(String word) {
@@ -210,7 +214,7 @@ public class UnderscoreString {
     }
 
     private static String upperBy_(String sentence) {
-        return Joiner.on('_').join(Splitter.on(BEFORE_UPPER_CASE).split(sentence));
+        return on('_').join(Splitter.on(BEFORE_UPPER_CASE).split(sentence));
     }
 
     public static String toSentence(String[] strings) {
@@ -218,7 +222,7 @@ public class UnderscoreString {
 
         String lastOne = strings[strings.length - 1];
         strings[strings.length - 1] = null;
-        return Joiner.on(", ").skipNulls().join(strings) + " and " + lastOne;
+        return on(", ").skipNulls().join(strings) + " and " + lastOne;
     }
 
     public static int count(String sentence, String find) {
@@ -281,7 +285,7 @@ public class UnderscoreString {
                 words[i - 1] = rtrim(words[i - 1], ",") + "...";
                 String[] target = new String[i];
                 System.arraycopy(words, 0, target, 0, i);
-                return Joiner.on(' ').join(target);
+                return on(' ').join(target);
             }
         }
         return sentence;
@@ -298,5 +302,19 @@ public class UnderscoreString {
     public static String replaceAll(String str, String find, String replace, boolean ignorecase) {
         String findRegex = ignorecase ? "(?i)" + find : find;
         return Pattern.compile(findRegex).matcher(nullToEmpty(str)).replaceAll(replace);
+    }
+
+    public static String swapCase(String str) {
+        List<Character> chars = Chars.asList(nullToEmpty(str).toCharArray());
+        return from(chars).transform(flip()).join(on(""));
+    }
+
+    private static Function<Character, Character> flip() {
+        return new Function<Character, Character>() {
+            @Override
+            public Character apply(Character ch) {
+                return Character.isUpperCase(ch) ? Character.toLowerCase(ch) : Character.toUpperCase(ch);
+            }
+        };
     }
 }

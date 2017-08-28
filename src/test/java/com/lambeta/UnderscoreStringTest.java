@@ -302,6 +302,14 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.replaceAll(null, "a", "b"), is(""));
     }
 
+    @Test
+    public void swapCase() throws Exception {
+        assertThat(UnderscoreString.swapCase("AaBbCcDdEe"), is("aAbBcCdDeE"));
+        assertThat(UnderscoreString.swapCase("Hello World"), is("hELLO wORLD"));
+        assertThat(UnderscoreString.swapCase(""), is(""));
+        assertThat(UnderscoreString.swapCase(null), is(""));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
