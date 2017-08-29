@@ -64,5 +64,5 @@ dependencies {
 - [x] swapCase
 - [ ] wrap
 - [ ] naturalSort
-- [ ] naturalCmp
+- [x] naturalCmp
 - [ ] dedent

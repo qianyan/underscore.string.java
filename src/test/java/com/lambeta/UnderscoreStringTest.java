@@ -310,6 +310,20 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.swapCase(null), is(""));
     }
 
+    @Test
+    public void naturalCmp() throws Exception {
+        assertThat(UnderscoreString.naturalCmp("abc", "123"), is(1));
+        assertThat(UnderscoreString.naturalCmp("123", "abc"), is(-1));
+        assertThat(UnderscoreString.naturalCmp("r69", "r9"), is(1));
+        assertThat(UnderscoreString.naturalCmp("r9", "r69"), is(-1));
+        assertThat(UnderscoreString.naturalCmp("15a123", "15a122"), is(1));
+        assertThat(UnderscoreString.naturalCmp("abc", "abc"), is(0));
+        assertThat(UnderscoreString.naturalCmp("15ac", "15ac32b"), is(-1));
+        assertThat(UnderscoreString.naturalCmp("15.05", "15"), is(1));
+        assertThat(UnderscoreString.naturalCmp("abc", null), is(1));
+        assertThat(UnderscoreString.naturalCmp(null, "abc"), is(-1));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;

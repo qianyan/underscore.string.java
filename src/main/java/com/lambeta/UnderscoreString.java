@@ -6,7 +6,9 @@ import com.google.common.primitives.Chars;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.google.common.base.Joiner.on;
@@ -316,5 +318,52 @@ public class UnderscoreString {
                 return Character.isUpperCase(ch) ? Character.toLowerCase(ch) : Character.toUpperCase(ch);
             }
         };
+    }
+
+    public static int naturalCmp(String str0, String str1) {
+        if (str0 == null) {
+            return -1;
+        }
+        if (str1 == null) {
+            return 1;
+        }
+        if (str0.equals(str1)) {
+            return 0;
+        }
+        Pattern numberRegex = Pattern.compile("(\\.\\d+|\\d+|\\D+)");
+        String[] token0 = reseq(numberRegex.matcher(str0));
+        String[] token1 = reseq(numberRegex.matcher(str1));
+
+        int minSize = Math.min(token0.length, token1.length);
+
+        for (int i = 0; i < minSize; i++) {
+            String a = token0[i];
+            String b = token1[i];
+
+            if (!a.equals(b)) {
+                double num0, num1;
+                try {
+                    num0 = Double.parseDouble(a);
+                    num1 = Double.parseDouble(b);
+                    return num0 > num1 ? 1 : -1;
+                } catch (NumberFormatException e) {
+                    return a.compareTo(b) > 0 ? 1 : -1;
+                }
+            }
+        }
+
+        if (token0.length != token1.length) {
+            return token0.length > token1.length ? 1 : -1;
+        }
+
+        return str0.compareTo(str1) > 0 ? 1 : -1;
+    }
+
+    private static String[] reseq(Matcher matcher) {
+        ArrayList<String> tokens = new ArrayList<>();
+        while (matcher.find()) {
+            tokens.add(matcher.group());
+        }
+        return tokens.toArray(new String[tokens.size()]);
     }
 }
