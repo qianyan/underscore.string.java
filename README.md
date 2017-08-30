@@ -63,6 +63,6 @@ dependencies {
 - [x] replaceAll
 - [x] swapCase
 - [ ] wrap
-- [ ] naturalSort
+- [x] naturalSort
 - [x] naturalCmp
 - [ ] dedent

@@ -2,6 +2,9 @@ package com.lambeta;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
@@ -322,6 +325,20 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.naturalCmp("15.05", "15"), is(1));
         assertThat(UnderscoreString.naturalCmp("abc", null), is(1));
         assertThat(UnderscoreString.naturalCmp(null, "abc"), is(-1));
+    }
+
+    @Test
+    public void naturalSort() throws Exception {
+        String[] arr = new String[]{"foo2", "foo1", "foo10", "foo30", "foo100", "foo10bar"};
+        String[] sortedArr = new String[]{"foo1", "foo2", "foo10", "foo10bar", "foo30", "foo100"};
+        Arrays.sort(arr, new Comparator<String>() {
+                    @Override
+                    public int compare(String str0, String str1) {
+                        return UnderscoreString.naturalCmp(str0, str1);
+                    }
+                });
+
+        assertThat(arr, is(sortedArr));
     }
 
     @SafeVarargs
