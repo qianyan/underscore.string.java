@@ -18,6 +18,7 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.collect.FluentIterable.from;
 import static com.google.common.collect.Iterables.toArray;
+import static java.lang.String.format;
 
 public class UnderscoreString {
     private static final Pattern BEFORE_UPPER_CASE = Pattern.compile("(?=\\p{Upper})");
@@ -155,7 +156,7 @@ public class UnderscoreString {
     }
 
     public static String surround(String word, String wrap) {
-        return String.format("%s%s%s", wrap, word, wrap);
+        return format("%s%s%s", wrap, word, wrap);
     }
 
     public static String quote(String word) {
@@ -365,5 +366,22 @@ public class UnderscoreString {
             tokens.add(matcher.group());
         }
         return tokens.toArray(new String[tokens.size()]);
+    }
+
+    public static String dedent(String str0) {
+        String str = Strings.nullToEmpty(str0);
+        return Pattern.compile(format("^[ \\t]{%d}", indent(str)), Pattern.MULTILINE).matcher(str).replaceAll("");
+    }
+
+    private static int indent(String str) {
+        if (Strings.isNullOrEmpty(str)) {
+            return 0;
+        }
+        String[] reseq = reseq(Pattern.compile("^[\\s\\t]*", Pattern.MULTILINE).matcher(str));
+        int indent = reseq[0].length();
+        for(int i = 1; i < reseq.length; i++) {
+            indent = Math.min(reseq[i].length(), indent);
+        }
+        return indent;
     }
 }
