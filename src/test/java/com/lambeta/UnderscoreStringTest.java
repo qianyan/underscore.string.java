@@ -358,6 +358,7 @@ public class UnderscoreStringTest {
 
     @Test
     public void wrap() throws Exception {
+        // without trailing spaces
         assertThat(UnderscoreString.wrap("My name is", Option.builder()
                 .withWidth(2)
                 .withSeparator('.')
@@ -383,6 +384,7 @@ public class UnderscoreStringTest {
                 .withTrailingSpaces(false)
                 .build()), is("My .nam.e i.s"));
 
+        // with trailing spaces
         assertThat(UnderscoreString.wrap("My name is", Option.builder()
                 .withWidth(2)
                 .withSeparator('.')
@@ -407,6 +409,45 @@ public class UnderscoreStringTest {
                 .withCut(true)
                 .withTrailingSpaces(true)
                 .build()), is("My .nam.e i.s  "));
+
+        // with preserveSpaces
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(2)
+                .withSeparator('.')
+                .withCut(false)
+                .withPreserveSpaces(true)
+                .build()), is("My .name .is"));
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(3)
+                .withSeparator('.')
+                .withCut(false)
+                .withPreserveSpaces(true)
+                .build()), is("My .name .is"));
+
+        // with preserveSpaces and trailingSpaces
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(2)
+                .withSeparator('.')
+                .withCut(false)
+                .withTrailingSpaces(true)
+                .withPreserveSpaces(true)
+                .build()), is("My .name .is"));
+
+        // defaults
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(3)
+                .build()), is("My\nname\nis"));
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .build()), is("My name is"));
+        assertThat(UnderscoreString.wrap("", Option.builder()
+                .withWidth(5)
+                .build()), is(""));
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(0)
+                .build()), is("My name is"));
+        assertThat(UnderscoreString.wrap(null, Option.builder()
+                .withWidth(0)
+                .build()), is(""));
     }
 
     @SafeVarargs

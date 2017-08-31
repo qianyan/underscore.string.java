@@ -388,12 +388,25 @@ public class UnderscoreString {
         return indent;
     }
 
-    public static String wrap(String str, Option option) {
+    public static String wrap(String str0, Option option) {
+        String str = Strings.nullToEmpty(str0);
+        if(option.getWidth() <= 0) {
+            return str;
+        }
         Joiner j = Joiner.on(option.getSeparator());
         if (!option.isCut()) {
             Iterable<String> words = Splitter.on(" ").split(str);
+
+            if (option.isPreserveSpaces()) {
+                return Joiner.on(" " + option.getSeparator()).join(words);
+            }
+
             if (option.isTrailingSpaces()) {
-                return j.join(transform(words, trailingSpaces(option)));
+                return j.join(transform(words, trailingSpaces(option.getWidth())));
+            }
+
+            if (j.join(words).length() < option.getWidth()) {
+                return Joiner.on(" ").join(words);
             }
 
             return j.join(words);
@@ -401,22 +414,22 @@ public class UnderscoreString {
 
         Iterable<String> words = fixedLength(option.getWidth()).split(str);
         if (option.isTrailingSpaces()) {
-            return j.join(words) + trailingSpaces(option, getLast(words));
+            return j.join(words) + trailingSpaces(getLast(words), option.getWidth());
         }
 
         return j.join(words);
     }
 
-    private static String trailingSpaces(Option option, String last) {
-        int gap = option.getWidth() - last.length();
+    private static String trailingSpaces(String word, int width) {
+        int gap = width - word.length();
         return gap > 0 ? repeat(" ", gap) : "";
     }
 
-    private static Function<String, String> trailingSpaces(final Option option) {
+    private static Function<String, String> trailingSpaces(final int width) {
         return new Function<String, String>() {
             @Override
             public String apply(String word) {
-                return word + trailingSpaces(option, word);
+                return word + trailingSpaces(word, width);
             }
         };
     }
