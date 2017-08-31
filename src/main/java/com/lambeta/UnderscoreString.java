@@ -14,10 +14,13 @@ import java.util.regex.Pattern;
 import static com.google.common.base.Joiner.on;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.base.Splitter.fixedLength;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.collect.FluentIterable.from;
+import static com.google.common.collect.Iterables.getLast;
 import static com.google.common.collect.Iterables.toArray;
+import static com.google.common.collect.Iterables.transform;
 import static java.lang.String.format;
 
 public class UnderscoreString {
@@ -98,7 +101,7 @@ public class UnderscoreString {
     public static String[] chop(String word, int fixedLength) {
         Preconditions.checkArgument(fixedLength >= 0, "fixedLength must greater than or equal to zero");
         if (fixedLength == 0) return new String[]{word};
-        return toArray(Splitter.fixedLength(fixedLength).split(word), String.class);
+        return toArray(fixedLength(fixedLength).split(word), String.class);
     }
 
     public static String splice(String word, int start, int length, String replacement) {
@@ -379,9 +382,42 @@ public class UnderscoreString {
         }
         String[] reseq = reseq(Pattern.compile("^[\\s\\t]*", Pattern.MULTILINE).matcher(str));
         int indent = reseq[0].length();
-        for(int i = 1; i < reseq.length; i++) {
+        for (int i = 1; i < reseq.length; i++) {
             indent = Math.min(reseq[i].length(), indent);
         }
         return indent;
+    }
+
+    public static String wrap(String str, Option option) {
+        Joiner j = Joiner.on(option.getSeparator());
+        if (!option.isCut()) {
+            Iterable<String> words = Splitter.on(" ").split(str);
+            if (option.isTrailingSpaces()) {
+                return j.join(transform(words, trailingSpaces(option)));
+            }
+
+            return j.join(words);
+        }
+
+        Iterable<String> words = fixedLength(option.getWidth()).split(str);
+        if (option.isTrailingSpaces()) {
+            return j.join(words) + trailingSpaces(option, getLast(words));
+        }
+
+        return j.join(words);
+    }
+
+    private static String trailingSpaces(Option option, String last) {
+        int gap = option.getWidth() - last.length();
+        return gap > 0 ? repeat(" ", gap) : "";
+    }
+
+    private static Function<String, String> trailingSpaces(final Option option) {
+        return new Function<String, String>() {
+            @Override
+            public String apply(String word) {
+                return word + trailingSpaces(option, word);
+            }
+        };
     }
 }

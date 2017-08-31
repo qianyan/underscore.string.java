@@ -96,7 +96,7 @@ public class UnderscoreStringTest {
     public void splice() throws Exception {
         assertThat(UnderscoreString.splice("whitespace", 5, 5, "shift"), is("whiteshift"));
         assertThat(UnderscoreString.splice(
-                        "https://edtsech@bitbucket.org/edtsech/underscore.strings", 30, 7, "epeli"),
+                "https://edtsech@bitbucket.org/edtsech/underscore.strings", 30, 7, "epeli"),
                 is("https://edtsech@bitbucket.org/epeli/underscore.strings"));
     }
 
@@ -256,7 +256,7 @@ public class UnderscoreStringTest {
     @Test
     public void lrpad() throws Exception {
         assertThat(UnderscoreString.lrpad("1", 8), is("    1   "));
-        assertThat(UnderscoreString.lrpad("1", 8,'-'), is("----1---"));
+        assertThat(UnderscoreString.lrpad("1", 8, '-'), is("----1---"));
     }
 
     @Test
@@ -332,11 +332,11 @@ public class UnderscoreStringTest {
         String[] arr = new String[]{"foo2", "foo1", "foo10", "foo30", "foo100", "foo10bar"};
         String[] sortedArr = new String[]{"foo1", "foo2", "foo10", "foo10bar", "foo30", "foo100"};
         Arrays.sort(arr, new Comparator<String>() {
-                    @Override
-                    public int compare(String str0, String str1) {
-                        return UnderscoreString.naturalCmp(str0, str1);
-                    }
-                });
+            @Override
+            public int compare(String str0, String str1) {
+                return UnderscoreString.naturalCmp(str0, str1);
+            }
+        });
 
         assertThat(arr, is(sortedArr));
     }
@@ -354,6 +354,59 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.dedent(null), is(""));
         assertThat(UnderscoreString.dedent(""), is(""));
         assertThat(UnderscoreString.dedent("\n"), is("\n"));
+    }
+
+    @Test
+    public void wrap() throws Exception {
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(2)
+                .withSeparator('.')
+                .withCut(false)
+                .withTrailingSpaces(false)
+                .build()), is("My.name.is"));
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(2)
+                .withSeparator('.')
+                .withCut(true)
+                .withTrailingSpaces(false)
+                .build()), is("My. n.am.e .is"));
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(3)
+                .withSeparator('.')
+                .withCut(false)
+                .withTrailingSpaces(false)
+                .build()), is("My.name.is"));
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(3)
+                .withSeparator('.')
+                .withCut(true)
+                .withTrailingSpaces(false)
+                .build()), is("My .nam.e i.s"));
+
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(2)
+                .withSeparator('.')
+                .withCut(false)
+                .withTrailingSpaces(true)
+                .build()), is("My.name.is"));
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(2)
+                .withSeparator('.')
+                .withCut(true)
+                .withTrailingSpaces(true)
+                .build()), is("My. n.am.e .is"));
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(3)
+                .withSeparator('.')
+                .withCut(false)
+                .withTrailingSpaces(true)
+                .build()), is("My .name.is "));
+        assertThat(UnderscoreString.wrap("My name is", Option.builder()
+                .withWidth(3)
+                .withSeparator('.')
+                .withCut(true)
+                .withTrailingSpaces(true)
+                .build()), is("My .nam.e i.s  "));
     }
 
     @SafeVarargs
