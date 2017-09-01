@@ -5,7 +5,7 @@ underscore.string.java
 
 A library for Java String manipulation
 ## Prerequisites
-* java >=1.6
+* java >= 1.6
 * guava 18.0
 
 ## Installation
@@ -62,7 +62,7 @@ dependencies {
 - [x] isBlank
 - [x] replaceAll
 - [x] swapCase
-- [ ] wrap
 - [x] naturalSort
 - [x] naturalCmp
 - [x] dedent
+- [ ] wrap
