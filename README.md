@@ -65,4 +65,3 @@ dependencies {
 - [x] naturalSort
 - [x] naturalCmp
 - [x] dedent
-- [ ] wrap

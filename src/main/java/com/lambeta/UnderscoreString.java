@@ -18,9 +18,7 @@ import static com.google.common.base.Splitter.fixedLength;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.collect.FluentIterable.from;
-import static com.google.common.collect.Iterables.getLast;
 import static com.google.common.collect.Iterables.toArray;
-import static com.google.common.collect.Iterables.transform;
 import static java.lang.String.format;
 
 public class UnderscoreString {
@@ -386,38 +384,6 @@ public class UnderscoreString {
             indent = Math.min(reseq[i].length(), indent);
         }
         return indent;
-    }
-
-    public static String wrap(String str0, Option option) {
-        String str = Strings.nullToEmpty(str0);
-        if(option.getWidth() <= 0) {
-            return str;
-        }
-        Joiner j = Joiner.on(option.getSeparator());
-        if (!option.isCut()) {
-            Iterable<String> words = Splitter.on(" ").split(str);
-
-            if (option.isPreserveSpaces()) {
-                return Joiner.on(" " + option.getSeparator()).join(words);
-            }
-
-            if (option.isTrailingSpaces()) {
-                return j.join(transform(words, trailingSpaces(option.getWidth())));
-            }
-
-            if (j.join(words).length() < option.getWidth()) {
-                return Joiner.on(" ").join(words);
-            }
-
-            return j.join(words);
-        }
-
-        Iterable<String> words = fixedLength(option.getWidth()).split(str);
-        if (option.isTrailingSpaces()) {
-            return j.join(words) + trailingSpaces(getLast(words), option.getWidth());
-        }
-
-        return j.join(words);
     }
 
     private static String trailingSpaces(String word, int width) {
