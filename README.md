@@ -3,6 +3,8 @@ underscore.string.java
 [![CircleCI](https://circleci.com/gh/qianyan/underscore.string.java.svg?style=shield)](https://circleci.com/gh/qianyan/underscore.string.java)
 ===
 
+[Here an introduction blog](http://lambeta.com/2017/09/06/Underscore-string-java/)
+
 A library for Java String manipulation
 ## Prerequisites
 * java >= 1.6
@@ -71,3 +73,4 @@ dependencies {
 - [x] naturalSort
 - [x] naturalCmp
 - [x] dedent
+
