@@ -385,18 +385,4 @@ public class UnderscoreString {
         }
         return indent;
     }
-
-    private static String trailingSpaces(String word, int width) {
-        int gap = width - word.length();
-        return gap > 0 ? repeat(" ", gap) : "";
-    }
-
-    private static Function<String, String> trailingSpaces(final int width) {
-        return new Function<String, String>() {
-            @Override
-            public String apply(String word) {
-                return word + trailingSpaces(word, width);
-            }
-        };
-    }
 }
