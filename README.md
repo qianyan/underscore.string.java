@@ -12,14 +12,20 @@ A library for Java String manipulation
 ### gradle
 ```groovy
 repositories {
-    maven {
-        url 'https://oss.sonatype.org/content/groups/public'
-    }
+    mavenCentral()
 }
 
 dependencies {
-    compile ("com.lambeta:underscore.string.java:0.0.1-SNAPSHOT")
+    compile 'com.lambeta:underscore.string.java:0.0.1'
 }
+```
+### maven
+```xml
+<dependency>
+    <groupId>com.lambeta</groupId>
+    <artifactId>underscore.string.java</artifactId>
+    <version>0.0.1</version>
+</dependency>
 ```
 
 ## Supported features
