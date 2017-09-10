@@ -8,3 +8,7 @@ jdk:
 script:
   "./gradlew check -i"
 
+addons:
+  hosts:
+    - lambetaBuild
+  hostname: lambetaBuild
