@@ -74,3 +74,30 @@ dependencies {
 - [x] naturalCmp
 - [x] dedent
 
+## API
+### capitalize
+Converts first letter of the string to uppercase.
+```java
+import static com.lambeta.UnderscoreString.capitalize;
+
+capitalize(" hello ");
+// -> "Hello"
+```
+### slugify
+Transform text into an ascii slug which can be used in safely in URLs.
+```java
+import static com.lambeta.UnderscoreString.slugify;
+
+slugify(" hello World!");
+// -> "hello-world"
+```
+### count
+Returns number of occurrences of substring in string.
+```java
+import static com.lambeta.UnderscoreString.count;
+
+count("Hello world", "l");
+// -> 3
+```
+...
+
