@@ -347,7 +347,6 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.dedent("    Hello\n  World"), is("  Hello\nWorld"));
         assertThat(UnderscoreString.dedent("  Hello\nWorld"), is("  Hello\nWorld"));
         assertThat(UnderscoreString.dedent("  Hello\n    World"), is("Hello\n  World"));
-        assertThat(UnderscoreString.dedent("  Hello\n    World"), is("Hello\n  World"));
         assertThat(UnderscoreString.dedent("\t\tHello\tWorld"), is("Hello\tWorld"));
         assertThat(UnderscoreString.dedent("\t\tHello\n\t\tWorld"), is("Hello\nWorld"));
         assertThat(UnderscoreString.dedent("Hello\n\t\tWorld"), is("Hello\n\t\tWorld"));
