@@ -3,9 +3,9 @@ underscore.string.java
 [![CircleCI](https://circleci.com/gh/qianyan/underscore.string.java.svg?style=shield)](https://circleci.com/gh/qianyan/underscore.string.java)
 ===
 
-[Here an introduction blog](http://lambeta.com/2017/09/06/Underscore-string-java/)
-
 A library for Java String manipulation
+
+[Here an introduction blog](http://lambeta.com/2017/09/06/Underscore-string-java/)
 ## Prerequisites
 * java >= 1.6
 * guava 18.0
@@ -400,7 +400,7 @@ isBlank("\n");
 // -> true
 ```
 ### replaceAll
-Replace all *find str* in given string to with *replacement*, if given string is null or empty, then returns empty string. The last argument *true* means ignore cases.
+Replace all *find str* in given string with *replacement*, if given string is null or empty, then returns empty string. The last argument *true* means ignore cases.
 ```java
 import static com.lambeta.underscorestring.replaceAll;
 
