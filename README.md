@@ -366,7 +366,7 @@ rpad("Hello", 8);
 ### lrpad
 left/right-pad a string.
 ```java
-import static com.lambeta.underscorestring.lrpad;
+import static com.lambeta.Underscorestring.lrpad;
 
 lrpad("1", 8);
 // -> "    1   "
@@ -374,7 +374,7 @@ lrpad("1", 8);
 ### words
 Split string by delimiter.
 ```java
-import static com.lambeta.underscorestring.words;
+import static com.lambeta.Underscorestring.words;
 
 words("I_love_you!");
 // -> [ "I", "love", "you!" ]
@@ -382,7 +382,7 @@ words("I_love_you!");
 ### prune
 Elegant version of truncate. Makes sure the pruned string does not exceed the original length. Avoid half-chopped words when truncating.
 ```java
-import static com.lambeta.underscorestring.prune;
+import static com.lambeta.Underscorestring.prune;
 
 prune("Hello, cruel world", 15);
 // -> "Hello, cruel..."
@@ -390,7 +390,7 @@ prune("Hello, cruel world", 15);
 ### isBlank
 Determine whether given string is blank or not.
 ```java
-import static com.lambeta.underscorestring.isBlank;
+import static com.lambeta.Underscorestring.isBlank;
 
 isBlank("")
 // -> true
@@ -402,7 +402,7 @@ isBlank("\n");
 ### replaceAll
 Replace all *find str* in given string with *replacement*, if given string is null or empty, then returns empty string. The last argument *true* means ignore cases.
 ```java
-import static com.lambeta.underscorestring.replaceAll;
+import static com.lambeta.Underscorestring.replaceAll;
 
 replaceAll("aca", "a", "b");
 // -> "bcb"
@@ -414,7 +414,7 @@ replaceAll("", "a", "b");
 ### swapCase
 Returns a copy of the string in which all the case-based characters have had their case swapped.
 ```java
-import static com.lambeta.underscorestring.swapCase;
+import static com.lambeta.Underscorestring.swapCase;
 
 swapCase("Hello World");
 // -> "hELLO wORLD"
@@ -422,7 +422,7 @@ swapCase("Hello World");
 ### naturalCmp
 Naturally sort strings like humans would do. None numbers are compared by their ASCII values. Note: this means "a" > "A". Use .toLowerCase if this isn't to be desired.
 ```java
-import static com.lambeta.underscorestring.naturalCmp;
+import static com.lambeta.Underscorestring.naturalCmp;
 
 naturalCmp("abc", "123");
 // -> 1
@@ -434,7 +434,7 @@ naturalCmp("r9", "r69");
 ### dedent
 Dedent unnecessary indentation.
 ```java
-import static com.lambeta.underscorestring.dedent;
+import static com.lambeta.Underscorestring.dedent;
 
 dedent("    Hello\n  World");
 // -> "  Hello\nWorld"
