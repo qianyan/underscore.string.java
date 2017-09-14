@@ -387,4 +387,59 @@ import static com.lambeta.underscorestring.prune;
 prune("Hello, cruel world", 15);
 // -> "Hello, cruel..."
 ```
-...
+### isBlank
+Determine whether given string is blank or not.
+```java
+import static com.lambeta.underscorestring.isBlank;
+
+isBlank("")
+// -> true
+isBlank(null);
+// -> true
+isBlank("\n");
+// -> true
+```
+### replaceAll
+Replace all *find str* in given string to with *replacement*, if given string is null or empty, then returns empty string. The last argument *true* means ignore cases.
+```java
+import static com.lambeta.underscorestring.replaceAll;
+
+replaceAll("aca", "a", "b");
+// -> "bcb"
+replaceAll("Aa", "a", "b", true);
+// -> "bb"
+replaceAll("", "a", "b");
+// -> ""
+```
+### swapCase
+Returns a copy of the string in which all the case-based characters have had their case swapped.
+```java
+import static com.lambeta.underscorestring.swapCase;
+
+swapCase("Hello World");
+// -> "hELLO wORLD"
+```
+### naturalCmp
+Naturally sort strings like humans would do. None numbers are compared by their ASCII values. Note: this means "a" > "A". Use .toLowerCase if this isn't to be desired.
+```java
+import static com.lambeta.underscorestring.naturalCmp;
+
+naturalCmp("abc", "123");
+// -> 1
+naturalCmp("15a123", "15a122");
+// -> 1
+naturalCmp("r9", "r69");
+// -> -1
+```
+### dedent
+Dedent unnecessary indentation.
+```java
+import static com.lambeta.underscorestring.dedent;
+
+dedent("    Hello\n  World");
+// -> "  Hello\nWorld"
+dedent("\t\tHello\tWorld");
+// -> "Hello\tWorld"
+dedent("\t\tHello\n\t\tWorld");
+// -> "Hello\nWorld"
+```
