@@ -1,6 +1,6 @@
 # Release 0.0.1 (06-Sep-2017)
 first public release 
-## Usage
+## Supported features
 - [x] capitalize
 - [x] slugify
 - [x] count

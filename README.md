@@ -10,7 +10,7 @@ A library for Java String manipulation
 
 More details in [Release Notes](doc/ReleaseNotes.md)
 
-[Here an introduction blog](http://lambeta.com/2017/09/06/Underscore-string-java/)
+[An introduction blog here](https://lambeta.com/2017/09/06/Underscore-string-java/)
 ## Prerequisites
 * java >= 1.6
 * guava 18.0
@@ -34,51 +34,6 @@ dependencies {
     <version>0.0.1</version>
 </dependency>
 ```
-
-## Supported features
-- [x] capitalize
-- [x] slugify
-- [x] count
-- [x] trim
-- [x] ltrim
-- [x] rtrim
-- [x] repeat
-- [x] decapitalize
-- [x] join
-- [x] reverse
-- [x] clean
-- [x] chop
-- [x] splice
-- [x] pred
-- [x] succ
-- [x] titleize
-- [x] camelize
-- [x] dasherize
-- [x] underscored
-- [x] classify
-- [x] humanize
-- [x] quote
-- [x] unquote
-- [x] surround
-- [x] numberFormat
-- [x] strRight
-- [x] strRightBack
-- [x] strLeft
-- [x] strLeftBack
-- [x] toSentence
-- [x] truncate
-- [x] lpad
-- [x] rpad
-- [x] lrpad
-- [x] words
-- [x] prune
-- [x] isBlank
-- [x] replaceAll
-- [x] swapCase
-- [x] naturalSort
-- [x] naturalCmp
-- [x] dedent
-
 ## API
 ### capitalize
 Converts first letter of the string to uppercase.
