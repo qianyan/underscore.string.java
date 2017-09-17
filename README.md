@@ -5,6 +5,11 @@ underscore.string.java
 
 A library for Java String manipulation
 
+## Latest Release
+* __0.0.1__
+
+More details in [Release Notes](doc/ReleaseNotes.md)
+
 [Here an introduction blog](http://lambeta.com/2017/09/06/Underscore-string-java/)
 ## Prerequisites
 * java >= 1.6
