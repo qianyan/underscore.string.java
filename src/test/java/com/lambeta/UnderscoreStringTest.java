@@ -19,6 +19,7 @@ public class UnderscoreStringTest {
     @Test
     public void slugify() throws Exception {
         assertThat(UnderscoreString.slugify(" hello World!"), is("hello-world"));
+        assertThat(UnderscoreString.slugify("Un éléphant àß l\'orée du bois"), is("un-elephant-ass-l-oree-du-bois"));
     }
 
     @Test
@@ -143,6 +144,7 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.dasherize("TheDasherizeStringMethod"), is("the-dasherize-string-method"));
         assertThat(UnderscoreString.dasherize("The_Dasherize-String_-Method"), is("the-dasherize-string-method"));
         assertThat(UnderscoreString.dasherize("the dasherize string method"), is("the-dasherize-string-method"));
+        assertThat(UnderscoreString.dasherize("_the dasherize string method"), is("-the-dasherize-string-method"));
     }
 
     @Test

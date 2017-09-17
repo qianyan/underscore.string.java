@@ -95,11 +95,14 @@ decapitalize("HELLO");
 ```
 ### slugify
 Transform text into an ascii slug which can be used in safely in URLs.
+Replaces whitespaces, accentuated, and special characters with a dash. Limited set of non-ascii characters are transformed to similar versions in the ascii character set such as ä to a.
 ```java
 import static com.lambeta.UnderscoreString.slugify;
 
 slugify(" hello World!");
 // -> "hello-world"
+slugify("Un éléphant àß l\'orée du bois");
+// -> "un-elephant-ass-l-oree-du-bois"
 ```
 ### count
 Returns number of occurrences of substring in string.

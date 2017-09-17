@@ -23,6 +23,8 @@ import static java.lang.String.format;
 
 public class UnderscoreString {
     private static final Pattern BEFORE_UPPER_CASE = Pattern.compile("(?=\\p{Upper})");
+    private static final String from = "ąàáäâãåæăćčĉęèéëêĝĥìíïîĵłľńňòóöőôõðøśșşšŝťțţŭùúüűûñÿýçżźžĄÀÁÄÂÃÅÆĂĆČĈĘÈÉËÊĜĤÌÍÏÎĴŁĽŃŇÒÓÖŐÔÕÐØŚȘŞŠŜŤȚŢŬÙÚÜŰÛÑŸÝÇŻŹŽ";
+    private static final String to = "aaaaaaaaaccceeeeeghiiiijllnnoooooooossssstttuuuuuunyyczzzAAAAAAAAACCCEEEEEGHIIIIJLLNNOOOOOOOOSSSSSTTTUUUUUUNYYCZZZ";
 
     public static String capitalize(String word) {
         return onCapitalize(word, true);
@@ -39,8 +41,23 @@ public class UnderscoreString {
     }
 
     public static String slugify(String s) {
-        String s1 = CharMatcher.JAVA_LETTER.negate().removeFrom(s);
-        return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_HYPHEN, s1);
+        return trim(dasherize(toAscii(CharMatcher.JAVA_LETTER.negate().replaceFrom(nullToEmpty(s), "-"))), "-");
+    }
+
+    private static String toAscii(String str) {
+        ArrayList<Character> characters = new ArrayList<>();
+        for (char c : str.toCharArray()) {
+            int index = from.indexOf(c);
+            if(index != -1) {
+                characters.add(to.charAt(index));
+            } else if(c == 'ß') {
+                characters.add('s');
+                characters.add('s');
+            } else {
+                characters.add(c);
+            }
+        }
+        return Joiner.on("").join(characters);
     }
 
     public static String trim(String word, String match) {
@@ -139,12 +156,12 @@ public class UnderscoreString {
     }
 
     public static String dasherize(String sentence) {
-        String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_HYPHEN, CharMatcher.WHITESPACE.collapseFrom(trim(upperBy_(sentence)), '-'));
+        String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_HYPHEN, CharMatcher.WHITESPACE.collapseFrom(trim(upperUnderscored(sentence)), '-'));
         return cleanBy(to, '-');
     }
 
     public static String underscored(String sentence) {
-        String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_UNDERSCORE, CharMatcher.anyOf("- ").collapseFrom((upperBy_(trim(sentence))), '_'));
+        String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_UNDERSCORE, CharMatcher.anyOf("- ").collapseFrom((upperUnderscored(trim(sentence))), '_'));
         return cleanBy(to, '_');
     }
 
@@ -209,15 +226,15 @@ public class UnderscoreString {
         return index != -1 ? sentence.substring(0, index) : sentence;
     }
 
-    private static String cleanBy(String to, char underscore) {
-        return CharMatcher.anyOf(String.valueOf(underscore)).collapseFrom(to, underscore);
+    private static String cleanBy(String to, char separator) {
+        return CharMatcher.anyOf(String.valueOf(separator)).collapseFrom(to, separator);
     }
 
     private static String replace(String sentence, char from, char to) {
         return CharMatcher.anyOf(String.valueOf(from)).replaceFrom(sentence, to);
     }
 
-    private static String upperBy_(String sentence) {
+    private static String upperUnderscored(String sentence) {
         return on('_').join(Splitter.on(BEFORE_UPPER_CASE).split(sentence));
     }
 
@@ -370,7 +387,7 @@ public class UnderscoreString {
     }
 
     public static String dedent(String str0) {
-        String str = Strings.nullToEmpty(str0);
+        String str = nullToEmpty(str0);
         return Pattern.compile(format("^[ \\t]{%d}", indent(str)), Pattern.MULTILINE).matcher(str).replaceAll("");
     }
 
