@@ -6,7 +6,7 @@ underscore.string.java
 A library for Java String manipulation
 
 ## Latest Release
-* __0.0.1__
+* __0.1.0__
 
 More details in [Release Notes](doc/ReleaseNotes.md)
 
@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.lambeta:underscore.string.java:0.0.1'
+    compile 'com.lambeta:underscore.string.java:0.1.0'
 }
 ```
 ### maven
@@ -31,7 +31,7 @@ dependencies {
 <dependency>
     <groupId>com.lambeta</groupId>
     <artifactId>underscore.string.java</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
 </dependency>
 ```
 ## API

@@ -1,3 +1,5 @@
+# Release 0.1.0 (17-Sep-2017)
+* slugify supports transforming non-ascii to ascii.
 # Release 0.0.1 (06-Sep-2017)
 first public release 
 ## Supported features
