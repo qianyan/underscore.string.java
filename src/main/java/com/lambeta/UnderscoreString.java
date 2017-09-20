@@ -48,9 +48,9 @@ public class UnderscoreString {
         ArrayList<Character> characters = new ArrayList<>();
         for (char c : str.toCharArray()) {
             int index = from.indexOf(c);
-            if(index != -1) {
+            if (index != -1) {
                 characters.add(to.charAt(index));
-            } else if(c == 'ß') {
+            } else if (c == 'ß') {
                 characters.add('s');
                 characters.add('s');
             } else {
@@ -401,5 +401,13 @@ public class UnderscoreString {
             indent = Math.min(reseq[i].length(), indent);
         }
         return indent;
+    }
+
+    public static String commonPrefix(String s, String s1) {
+        return Strings.commonPrefix(s, s1);
+    }
+
+    public static String commonPrefix(String s, String s1, boolean ignoreCase) {
+        return ignoreCase ? s1.substring(0, commonPrefix(s.toLowerCase(), s1.toLowerCase()).length()) : commonPrefix(s, s1);
     }
 }

@@ -357,6 +357,16 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.dedent("\n"), is("\n"));
     }
 
+    @Test
+    public void commonPrefix() throws Exception {
+        assertThat(UnderscoreString.commonPrefix("123", "321"), is(""));
+        assertThat(UnderscoreString.commonPrefix("123456", "123o8yuidfg"), is("123"));
+        assertThat(UnderscoreString.commonPrefix("Åffø123456", "Åfføo8yuidfg"), is("Åffø"));
+        assertThat(UnderscoreString.commonPrefix("hello", "Helloo", true), is("Hello"));
+        assertThat(UnderscoreString.commonPrefix("Hello", "helloo", true), is("hello"));
+        assertThat(UnderscoreString.commonPrefix("Hello", "helloo", false), is(""));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;

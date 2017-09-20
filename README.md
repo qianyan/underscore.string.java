@@ -406,3 +406,18 @@ dedent("\t\tHello\tWorld");
 dedent("\t\tHello\n\t\tWorld");
 // -> "Hello\nWorld"
 ```
+
+---
+
+## New Features in 0.2.0-SNAPSHOT
+
+### commonPrefix
+Returns the longest common prefix of s and s1. given *ignoreCase* as true will ignore case. 
+```java
+import static com.lambeta.Underscorestring.commonPrefix;
+
+commonPrefix("123456", "123o8yuidfg");
+// -> "123"
+commonPrefix("Hello", "helloo", true);
+// -> "hello"
+```
