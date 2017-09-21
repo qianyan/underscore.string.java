@@ -367,6 +367,16 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.commonPrefix("Hello", "helloo", false), is(""));
     }
 
+    @Test
+    public void commonSuffix() throws Exception {
+        assertThat(UnderscoreString.commonSuffix("123", "321"), is(""));
+        assertThat(UnderscoreString.commonSuffix("456123", "1414123"), is("123"));
+        assertThat(UnderscoreString.commonSuffix("123456Åffø", "o8yuidfgÅffø"), is("Åffø"));
+        assertThat(UnderscoreString.commonSuffix("hello", "hello"), is("hello"));
+        assertThat(UnderscoreString.commonSuffix("hello", "hellO", true), is("hellO"));
+        assertThat(UnderscoreString.commonSuffix("Hello", "hello", true), is("hello"));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
