@@ -432,3 +432,13 @@ commonSuffix("456123", "1414123");
 commonSuffix("hello", "hellO", true);
 // -> "hellO"
 ```
+### chopPrefix
+Remove prefix from the start of s. Otherwise return s.
+```java
+import static com.lambeta.Underscorestring.chopPrefix;
+
+chopPrefix("foo", "FOO")
+// -> "foo"
+chopPrefix("foo", "FOO", true);
+// -> ""
+```

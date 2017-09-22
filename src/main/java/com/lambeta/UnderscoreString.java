@@ -418,4 +418,13 @@ public class UnderscoreString {
     public static String commonSuffix(String s, String s1, boolean ignoreCase) {
         return ignoreCase ? s1.substring(s1.length() - commonSuffix(s.toLowerCase(), s1.toLowerCase()).length()) : commonSuffix(s, s1);
     }
+
+    public static String chopPrefix(String s, String prefix) {
+        return s.startsWith(prefix) ? s.substring(prefix.length()) : s;
+    }
+
+    public static String chopPrefix(String s, String prefix, boolean ignoreCase) {
+        boolean prefixIgnoreCase = ignoreCase && s.toLowerCase().startsWith(prefix.toLowerCase());
+        return prefixIgnoreCase ? s.substring(prefix.length()) : chopPrefix(s, prefix);
+    }
 }

@@ -94,6 +94,16 @@ public class UnderscoreStringTest {
     }
 
     @Test
+    public void chopPrefix() throws Exception {
+        assertThat(UnderscoreString.chopPrefix("foo", "foo"), is(""));
+        assertThat(UnderscoreString.chopPrefix("foobar", "foo"), is("bar"));
+        assertThat(UnderscoreString.chopPrefix(" foo", " "), is("foo"));
+        assertThat(UnderscoreString.chopPrefix("foo", "FOO"), is("foo"));
+        assertThat(UnderscoreString.chopPrefix("foo", "FOO", true), is(""));
+        assertThat(UnderscoreString.chopPrefix("Åfoo", "Å", true), is("foo"));
+    }
+
+    @Test
     public void splice() throws Exception {
         assertThat(UnderscoreString.splice("whitespace", 5, 5, "shift"), is("whiteshift"));
         assertThat(UnderscoreString.splice(
