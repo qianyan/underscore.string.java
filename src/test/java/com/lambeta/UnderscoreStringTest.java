@@ -104,6 +104,15 @@ public class UnderscoreStringTest {
     }
 
     @Test
+    public void chopSuffix() throws Exception {
+        assertThat(UnderscoreString.chopSuffix("foo", "foo"), is(""));
+        assertThat(UnderscoreString.chopSuffix("foobar", "bar"), is("foo"));
+        assertThat(UnderscoreString.chopSuffix("foo", "FOO"), is("foo"));
+        assertThat(UnderscoreString.chopSuffix("foo", "FOO", true), is(""));
+        assertThat(UnderscoreString.chopSuffix("foo", "O", true), is("fo"));
+    }
+
+    @Test
     public void splice() throws Exception {
         assertThat(UnderscoreString.splice("whitespace", 5, 5, "shift"), is("whiteshift"));
         assertThat(UnderscoreString.splice(

@@ -427,4 +427,13 @@ public class UnderscoreString {
         boolean prefixIgnoreCase = ignoreCase && s.toLowerCase().startsWith(prefix.toLowerCase());
         return prefixIgnoreCase ? s.substring(prefix.length()) : chopPrefix(s, prefix);
     }
+
+    public static String chopSuffix(String s, String suffix) {
+        return s.endsWith(suffix) ? s.substring(0, s.length() - suffix.length()) : s;
+    }
+
+    public static String chopSuffix(String s, String suffix, boolean ignoreCase) {
+        boolean suffixIgnoreCase = ignoreCase && s.toLowerCase().endsWith(suffix.toLowerCase());
+        return suffixIgnoreCase ? s.substring(0, s.length() - suffix.length()): chopSuffix(s, suffix);
+    }
 }

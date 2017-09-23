@@ -442,3 +442,13 @@ chopPrefix("foo", "FOO")
 chopPrefix("foo", "FOO", true);
 // -> ""
 ```
+### chopSuffix
+Remove suffix from the end of s. Otherwise return s.
+```java
+import static com.lambeta.Underscorestring.chopSuffix;
+
+chopSuffix("foo", "FOO");
+// -> "foo"
+chopSuffix("foo", "FOO", true);
+// -> ""
+```
