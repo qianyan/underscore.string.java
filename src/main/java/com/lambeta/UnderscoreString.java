@@ -22,7 +22,9 @@ import static com.google.common.collect.Iterables.toArray;
 import static java.lang.String.format;
 
 public class UnderscoreString {
-    private static final Pattern BEFORE_UPPER_CASE = Pattern.compile("(?=\\p{Upper})");
+    private static final String UPPER_UPPER_LOWER_CASE = "(\\p{Upper})(\\p{Upper}[\\p{Lower}0-9])";
+    private static final String LOWER_UPPER_CASE = "(\\p{Lower})(\\p{Upper})";
+
     private static final String from = "ąàáäâãåæăćčĉęèéëêĝĥìíïîĵłľńňòóöőôõðøśșşšŝťțţŭùúüűûñÿýçżźžĄÀÁÄÂÃÅÆĂĆČĈĘÈÉËÊĜĤÌÍÏÎĴŁĽŃŇÒÓÖŐÔÕÐØŚȘŞŠŜŤȚŢŬÙÚÜŰÛÑŸÝÇŻŹŽ";
     private static final String to = "aaaaaaaaaccceeeeeghiiiijllnnoooooooossssstttuuuuuunyyczzzAAAAAAAAACCCEEEEEGHIIIIJLLNNOOOOOOOOSSSSSTTTUUUUUUNYYCZZZ";
 
@@ -235,7 +237,7 @@ public class UnderscoreString {
     }
 
     private static String upperUnderscored(String sentence) {
-        return on('_').join(Splitter.on(BEFORE_UPPER_CASE).split(sentence));
+        return on('_').join(sentence.replaceAll(UPPER_UPPER_LOWER_CASE, "$1 $2").replaceAll(LOWER_UPPER_CASE, "$1 $2").split(" "));
     }
 
     public static String toSentence(String[] strings) {
@@ -435,5 +437,9 @@ public class UnderscoreString {
     public static String chopSuffix(String s, String suffix, boolean ignoreCase) {
         boolean suffixIgnoreCase = ignoreCase && s.toLowerCase().endsWith(suffix.toLowerCase());
         return suffixIgnoreCase ? s.substring(0, s.length() - suffix.length()): chopSuffix(s, suffix);
+    }
+
+    public static String screamingUnderscored(String s) {
+        return underscored(s).toUpperCase();
     }
 }

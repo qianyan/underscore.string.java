@@ -452,3 +452,15 @@ chopSuffix("foo", "FOO");
 chopSuffix("foo", "FOO", true);
 // -> ""
 ```
+### screamingUnderscored
+Upper case s and use underscores to separate words.
+```java
+import static com.lambeta.Underscorestring.screamingUnderscored;
+
+screamingUnderscored("The-Underscored_String_-Method");
+// -> "THE_UNDERSCORED_STRING_METHOD"
+screamingUnderscored("HTTPRequest");
+// -> "HTTP_REQUEST"
+screamingUnderscored("setID");
+// -> "SET_ID"
+```

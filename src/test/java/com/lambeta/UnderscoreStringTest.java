@@ -396,6 +396,18 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.commonSuffix("Hello", "hello", true), is("hello"));
     }
 
+    @Test
+    public void screamingUnderscored() throws Exception {
+        assertThat(UnderscoreString.screamingUnderscored("the-underscored-string-method"), is("THE_UNDERSCORED_STRING_METHOD"));
+        assertThat(UnderscoreString.screamingUnderscored("theUnderscoredStringMethod"), is("THE_UNDERSCORED_STRING_METHOD"));
+        assertThat(UnderscoreString.screamingUnderscored("TheUnderscoredStringMethod"), is("THE_UNDERSCORED_STRING_METHOD"));
+        assertThat(UnderscoreString.screamingUnderscored("The-Underscored_String_-Method"), is("THE_UNDERSCORED_STRING_METHOD"));
+        assertThat(UnderscoreString.screamingUnderscored("HTTPRequest"), is("HTTP_REQUEST"));
+        assertThat(UnderscoreString.screamingUnderscored("setID"), is("SET_ID"));
+        assertThat(UnderscoreString.screamingUnderscored("SCREAMING_UNDERSCORED"), is("SCREAMING_UNDERSCORED"));
+
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
