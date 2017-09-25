@@ -5,6 +5,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.primitives.Chars;
 
 import java.math.BigDecimal;
+import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,21 +26,16 @@ public class UnderscoreString {
     private static final String UPPER_UPPER_LOWER_CASE = "(\\p{Upper})(\\p{Upper}[\\p{Lower}0-9])";
     private static final String LOWER_UPPER_CASE = "(\\p{Lower})(\\p{Upper})";
 
-    private static final String from = "ąàáäâãåæăćčĉęèéëêĝĥìíïîĵłľńňòóöőôõðøśșşšŝťțţŭùúüűûñÿýçżźžĄÀÁÄÂÃÅÆĂĆČĈĘÈÉËÊĜĤÌÍÏÎĴŁĽŃŇÒÓÖŐÔÕÐØŚȘŞŠŜŤȚŢŬÙÚÜŰÛÑŸÝÇŻŹŽ";
-    private static final String to = "aaaaaaaaaccceeeeeghiiiijllnnoooooooossssstttuuuuuunyyczzzAAAAAAAAACCCEEEEEGHIIIIJLLNNOOOOOOOOSSSSSTTTUUUUUUNYYCZZZ";
-
     public static String capitalize(String word) {
         return onCapitalize(word, true);
     }
 
     private static String onCapitalize(String word, boolean on) {
         String trimWord = word.trim();
-        return (trimWord.isEmpty())
+        return trimWord.isEmpty()
                 ? trimWord
-                : new StringBuilder(trimWord.length())
-                .append(on ? Ascii.toUpperCase(trimWord.charAt(0)) : Ascii.toLowerCase(trimWord.charAt(0)))
-                .append(trimWord.substring(1))
-                .toString();
+                : String.valueOf(on ? Ascii.toUpperCase(trimWord.charAt(0)) : Ascii.toLowerCase(trimWord.charAt(0))) +
+                trimWord.substring(1);
     }
 
     public static String slugify(String s) {
@@ -47,19 +43,7 @@ public class UnderscoreString {
     }
 
     private static String toAscii(String str) {
-        ArrayList<Character> characters = new ArrayList<>();
-        for (char c : str.toCharArray()) {
-            int index = from.indexOf(c);
-            if (index != -1) {
-                characters.add(to.charAt(index));
-            } else if (c == 'ß') {
-                characters.add('s');
-                characters.add('s');
-            } else {
-                characters.add(c);
-            }
-        }
-        return Joiner.on("").join(characters);
+        return stripAccents(str).replaceAll("ß", "ss");
     }
 
     public static String trim(String word, String match) {
@@ -441,5 +425,9 @@ public class UnderscoreString {
 
     public static String screamingUnderscored(String s) {
         return underscored(s).toUpperCase();
+    }
+
+    public static String stripAccents(String s) {
+        return Normalizer.normalize(s, Normalizer.Form.NFD).replaceAll("\\p{InCOMBINING_DIACRITICAL_MARKS}+", "");
     }
 }

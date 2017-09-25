@@ -405,7 +405,12 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.screamingUnderscored("HTTPRequest"), is("HTTP_REQUEST"));
         assertThat(UnderscoreString.screamingUnderscored("setID"), is("SET_ID"));
         assertThat(UnderscoreString.screamingUnderscored("SCREAMING_UNDERSCORED"), is("SCREAMING_UNDERSCORED"));
+    }
 
+    @Test
+    public void stripAccents() throws Exception {
+        assertThat(UnderscoreString.stripAccents("Et ça sera sa moitié"), is("Et ca sera sa moitie"));
+        assertThat(UnderscoreString.stripAccents("ąàáäâãåæăćčĉęèéëêĝĥìíïîĵľńňòóöőôõøśșšŝťțŭùúüűûñÿýçżźž"), is("aaaaaaaæaccceeeeeghiiiijlnnooooooøssssttuuuuuunyyczzz"));
     }
 
     @SafeVarargs

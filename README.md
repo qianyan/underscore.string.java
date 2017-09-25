@@ -464,3 +464,11 @@ screamingUnderscored("HTTPRequest");
 screamingUnderscored("setID");
 // -> "SET_ID"
 ```
+### stripAccents
+Strip all accents (diacritical marks) from s.
+```java
+import static com.lambeta.Underscorestring.stripAccents;
+
+stripAccents("Et ça sera sa moitié");
+// -> "Et ca sera sa moitie"
+```
