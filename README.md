@@ -410,6 +410,35 @@ dedent("\t\tHello\n\t\tWorld");
 ---
 
 ## New Features in 0.2.0-SNAPSHOT
+### gradle
+```gradle
+repositories {
+    maven {
+        url 'https://oss.sonatype.org/content/groups/public'
+    }
+}
+
+dependencies {
+    compile ("com.lambeta:underscore.string.java:0.2.0-SNAPSHOT")
+}
+
+```
+### maven
+```xml
+<repositories>
+    <repository>
+      <id>my-repo</id>
+      <name>sonatype</name>
+      <url>https://oss.sonatype.org/content/groups/public</url>
+    </repository>
+</repositories>
+
+<dependency>
+    <groupId>com.lambeta</groupId>
+    <artifactId>underscore.string.java</artifactId>
+    <version>0.2.0-SNAPSHOT</version>
+</dependency>
+```
 
 ### commonPrefix
 Returns the longest common prefix of s and s1. given *ignoreCase* as true will return common suffix of s1. 
@@ -422,7 +451,7 @@ commonPrefix("Hello", "helloo", true);
 // -> "hello"
 ```
 
-### commonPrefix
+### commonSuffix
 Returns the longest common suffix of s and s1. given *ignoreCase* as true will return common suffix of s1. 
 ```java
 import static com.lambeta.Underscorestring.commonSuffix;
