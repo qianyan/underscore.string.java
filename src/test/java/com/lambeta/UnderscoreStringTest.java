@@ -330,6 +330,8 @@ public class UnderscoreStringTest {
     public void swapCase() throws Exception {
         assertThat(UnderscoreString.swapCase("AaBbCcDdEe"), is("aAbBcCdDeE"));
         assertThat(UnderscoreString.swapCase("Hello World"), is("hELLO wORLD"));
+        assertThat(UnderscoreString.swapCase("ß"), is("SS"));
+        assertThat(UnderscoreString.swapCase("Ååberg"), is("åÅBERG"));
         assertThat(UnderscoreString.swapCase(""), is(""));
         assertThat(UnderscoreString.swapCase(null), is(""));
     }

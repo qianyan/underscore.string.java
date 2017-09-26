@@ -316,11 +316,12 @@ public class UnderscoreString {
         return from(chars).transform(flip()).join(on(""));
     }
 
-    private static Function<Character, Character> flip() {
-        return new Function<Character, Character>() {
+    private static Function<Character, String> flip() {
+        return new Function<Character, String>() {
             @Override
-            public Character apply(Character ch) {
-                return Character.isUpperCase(ch) ? Character.toLowerCase(ch) : Character.toUpperCase(ch);
+            public String apply(Character ch) {
+                if ('ß' == ch) return "SS";
+                return (Character.isUpperCase(ch) ? Character.toLowerCase(ch) : Character.toUpperCase(ch)) + "";
             }
         };
     }
@@ -420,7 +421,7 @@ public class UnderscoreString {
 
     public static String chopSuffix(String s, String suffix, boolean ignoreCase) {
         boolean suffixIgnoreCase = ignoreCase && s.toLowerCase().endsWith(suffix.toLowerCase());
-        return suffixIgnoreCase ? s.substring(0, s.length() - suffix.length()): chopSuffix(s, suffix);
+        return suffixIgnoreCase ? s.substring(0, s.length() - suffix.length()) : chopSuffix(s, suffix);
     }
 
     public static String screamingUnderscored(String s) {

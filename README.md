@@ -381,6 +381,8 @@ import static com.lambeta.Underscorestring.swapCase;
 
 swapCase("Hello World");
 // -> "hELLO wORLD"
+swapCase("ß");
+// -> "SS"
 ```
 ### naturalCmp
 Naturally sort strings like humans would do. None numbers are compared by their ASCII values. Note: this means "a" > "A". Use .toLowerCase if this isn't to be desired.
