@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -422,6 +424,15 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.pascalize("HTTPRequest"), is("HttpRequest"));
         assertThat(UnderscoreString.pascalize("underscore_case"), is("UnderscoreCase"));
         assertThat(UnderscoreString.pascalize("SCREAMING_UNDERSCORED_CASE"), is("ScreamingUnderscoredCase"));
+    }
+
+    @Test
+    public void translate() throws Exception {
+        assertThat(UnderscoreString.translate("ababa", new HashMap<Character, Character>(){{put('a', 'b');}}), is("bbbbb"));
+        assertThat(UnderscoreString.translate("ababa", new HashMap<Character, Character>(){{put('a', 'b'); put('b', 'a');}}), is("babab"));
+        assertThat(UnderscoreString.translate("ababa", new HashMap<Character, Character>(){{put('a', 'b'); put('b', 'a');}}), is("babab"));
+        assertThat(UnderscoreString.translate("ababa", new HashMap<Character, Character>(){{put('a', 'b');}}, new HashSet<Character>(){{add('b');}}), is("bbb"));
+        assertThat(UnderscoreString.translate("xababa", new HashMap<Character, Character>(){{put('a', null);}}, new HashSet<Character>(){{add('b');}}), is("x"));
     }
 
     @SafeVarargs

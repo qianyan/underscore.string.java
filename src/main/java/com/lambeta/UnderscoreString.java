@@ -2,12 +2,15 @@ package com.lambeta;
 
 import com.google.common.base.*;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
 import com.google.common.primitives.Chars;
 
 import java.math.BigDecimal;
 import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,6 +18,7 @@ import java.util.regex.Pattern;
 import static com.google.common.base.Joiner.on;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
+import static com.google.common.base.Predicates.not;
 import static com.google.common.base.Splitter.fixedLength;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Strings.nullToEmpty;
@@ -434,5 +438,32 @@ public class UnderscoreString {
 
     public static String pascalize(String s) {
         return titleize(underscored(s)).replace("_", "");
+    }
+
+    public static String translate(String str, HashMap<Character, Character> dictionary) {
+        return translate(str, dictionary, Sets.newHashSet());
+    }
+
+    public static String translate(String str, HashMap<Character, Character> dictionary, HashSet<Character> deletedChars) {
+        List<Character> chars = Chars.asList(nullToEmpty(str).toCharArray());
+        return from(chars).filter(without(deletedChars)).transform(in(dictionary)).filter(without(new HashSet<Character>(){{add(null);}})).join(on(""));
+    }
+
+    private static Function<Character, Character> in(HashMap<Character, Character> dictionary) {
+        return new Function<Character, Character>() {
+            @Override
+            public Character apply(Character c) {
+                return dictionary.getOrDefault(c, c);
+            }
+        };
+    }
+
+    private static Predicate<Character> without(HashSet<Character> deletedChars) {
+        return not(new Predicate<Character>() {
+            @Override
+            public boolean apply(Character c) {
+                return deletedChars.contains(c);
+            }
+        });
     }
 }

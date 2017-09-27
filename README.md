@@ -511,3 +511,19 @@ import static com.lambeta.Underscorestring.pascalize;
 pascalize("PascalCase");
 // -> "PascalCase"
 ```
+### translate
+Translate all characters in s according to the mappings found in tmap.
+
+Any characters found in the set delete-chars will be pruned prior to
+consulting tmap.
+
+Any characters mapping to nil in tmap will also be deleted.
+
+```java
+import static com.lambeta.Underscorestring.translate;
+
+translate("ababa", new HashMap<Character, Character>(){{put('a', 'b');}});
+// -> "bbbbb"
+translate("ababa", new HashMap<Character, Character>(){{put('a', 'b');}}, new HashSet<Character>(){{add('b');}});
+// -> "bbb"
+```
