@@ -431,4 +431,8 @@ public class UnderscoreString {
     public static String stripAccents(String s) {
         return Normalizer.normalize(s, Normalizer.Form.NFD).replaceAll("\\p{InCOMBINING_DIACRITICAL_MARKS}+", "");
     }
+
+    public static String pascalize(String s) {
+        return titleize(underscored(s)).replace("_", "");
+    }
 }

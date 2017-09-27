@@ -503,3 +503,11 @@ import static com.lambeta.Underscorestring.stripAccents;
 stripAccents("Et ça sera sa moitié");
 // -> "Et ca sera sa moitie"
 ```
+### pascalize
+Upper the case first char in s and use capitalization to separate words.
+```java
+import static com.lambeta.Underscorestring.pascalize;
+
+pascalize("PascalCase");
+// -> "PascalCase"
+```

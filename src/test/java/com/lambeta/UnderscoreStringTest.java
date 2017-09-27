@@ -415,6 +415,15 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.stripAccents("ąàáäâãåæăćčĉęèéëêĝĥìíïîĵľńňòóöőôõøśșšŝťțŭùúüűûñÿýçżźž"), is("aaaaaaaæaccceeeeeghiiiijlnnooooooøssssttuuuuuunyyczzz"));
     }
 
+    @Test
+    public void pascalize() throws Exception {
+        assertThat(UnderscoreString.pascalize("PascalCase"), is("PascalCase"));
+        assertThat(UnderscoreString.pascalize("setID"), is("SetId"));
+        assertThat(UnderscoreString.pascalize("HTTPRequest"), is("HttpRequest"));
+        assertThat(UnderscoreString.pascalize("underscore_case"), is("UnderscoreCase"));
+        assertThat(UnderscoreString.pascalize("SCREAMING_UNDERSCORED_CASE"), is("ScreamingUnderscoredCase"));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
