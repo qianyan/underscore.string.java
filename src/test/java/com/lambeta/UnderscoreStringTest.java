@@ -435,6 +435,16 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.translate("xababa", new HashMap<Character, Character>(){{put('a', null);}}, new HashSet<Character>(){{add('b');}}), is("x"));
     }
 
+    @Test
+    public void mixedCase() throws Exception {
+        assertFalse(UnderscoreString.mixedCase("1AB").isPresent());
+        assertTrue(UnderscoreString.mixedCase("1aB").isPresent());
+        assertThat(UnderscoreString.mixedCase("1aB").get(), is("1aB"));
+        assertFalse(UnderscoreString.mixedCase("1234").isPresent());
+        assertTrue(UnderscoreString.mixedCase("FooBar").isPresent());
+        assertThat(UnderscoreString.mixedCase("FooBar").get(), is("FooBar"));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;

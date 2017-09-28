@@ -466,4 +466,9 @@ public class UnderscoreString {
             }
         });
     }
+
+    public static Optional<String> mixedCase(String s) {
+        boolean isMixedCase = CharMatcher.JAVA_LOWER_CASE.matchesAnyOf(s) && CharMatcher.JAVA_UPPER_CASE.matchesAnyOf(s);
+        return isMixedCase ? Optional.of(s) : Optional.absent();
+    }
 }

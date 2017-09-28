@@ -527,3 +527,13 @@ translate("ababa", new HashMap<Character, Character>(){{put('a', 'b');}});
 translate("ababa", new HashMap<Character, Character>(){{put('a', 'b');}}, new HashSet<Character>(){{add('b');}});
 // -> "bbb"
 ```
+### mixedCase
+Return *Optional<String> s* if s contains both upper and lower case letters.
+```java
+import static com.lambeta.Underscorestring.mixedCase;
+
+mixedCase("1AB");
+// -> Optional.absent();
+mixedCase("FooBar");
+// -> Optional.of("FooBar")
+```
