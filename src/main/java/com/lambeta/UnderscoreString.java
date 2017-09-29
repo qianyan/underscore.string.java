@@ -441,7 +441,7 @@ public class UnderscoreString {
     }
 
     public static String translate(String str, HashMap<Character, Character> dictionary) {
-        return translate(str, dictionary, Sets.newHashSet());
+        return translate(str, dictionary, Sets.<Character>newHashSet());
     }
 
     public static String translate(String str, HashMap<Character, Character> dictionary, HashSet<Character> deletedChars) {
@@ -449,7 +449,7 @@ public class UnderscoreString {
         return from(chars).filter(without(deletedChars)).transform(in(dictionary)).filter(without(new HashSet<Character>(){{add(null);}})).join(on(""));
     }
 
-    private static Function<Character, Character> in(HashMap<Character, Character> dictionary) {
+    private static Function<Character, Character> in(final HashMap<Character, Character> dictionary) {
         return new Function<Character, Character>() {
             @Override
             public Character apply(Character c) {
@@ -458,7 +458,7 @@ public class UnderscoreString {
         };
     }
 
-    private static Predicate<Character> without(HashSet<Character> deletedChars) {
+    private static Predicate<Character> without(final HashSet<Character> deletedChars) {
         return not(new Predicate<Character>() {
             @Override
             public boolean apply(Character c) {
@@ -469,7 +469,7 @@ public class UnderscoreString {
 
     public static Optional<String> mixedCase(String s) {
         boolean isMixedCase = CharMatcher.JAVA_LOWER_CASE.matchesAnyOf(s) && CharMatcher.JAVA_UPPER_CASE.matchesAnyOf(s);
-        return isMixedCase ? Optional.of(s) : Optional.absent();
+        return isMixedCase ? Optional.of(s) : Optional.<String>absent();
     }
 
     public static String collapseWhitespaces(String s) {
