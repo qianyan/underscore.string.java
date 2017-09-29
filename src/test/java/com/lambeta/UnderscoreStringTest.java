@@ -445,6 +445,12 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.mixedCase("FooBar").get(), is("FooBar"));
     }
 
+    @Test
+    public void collapseWhitespaces() throws Exception {
+        assertThat(UnderscoreString.collapseWhitespaces("foo    bar    baz"), is("foo bar baz"));
+        assertThat(UnderscoreString.collapseWhitespaces("  foo    bar    baz  "), is(" foo bar baz "));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;

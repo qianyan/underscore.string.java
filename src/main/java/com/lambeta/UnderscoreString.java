@@ -100,7 +100,7 @@ public class UnderscoreString {
     }
 
     public static String clean(String word) {
-        return CharMatcher.WHITESPACE.collapseFrom(trim(word), ' ');
+        return collapseWhitespaces(trim(word));
     }
 
     public static String[] chop(String word, int fixedLength) {
@@ -470,5 +470,9 @@ public class UnderscoreString {
     public static Optional<String> mixedCase(String s) {
         boolean isMixedCase = CharMatcher.JAVA_LOWER_CASE.matchesAnyOf(s) && CharMatcher.JAVA_UPPER_CASE.matchesAnyOf(s);
         return isMixedCase ? Optional.of(s) : Optional.absent();
+    }
+
+    public static String collapseWhitespaces(String s) {
+        return CharMatcher.WHITESPACE.collapseFrom(s, ' ');
     }
 }

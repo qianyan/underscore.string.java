@@ -537,3 +537,11 @@ mixedCase("1AB");
 mixedCase("FooBar");
 // -> Optional.of("FooBar")
 ```
+### collapseWhitespaces
+Convert all adjacent whitespace in s to a single space.
+```java
+import static com.lambeta.Underscorestring.collapseWhitespaces;
+
+collapseWhitespaces("foo    bar    baz");
+// -> "foo bar baz"
+```
