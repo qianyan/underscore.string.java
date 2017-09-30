@@ -451,6 +451,13 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.collapseWhitespaces("  foo    bar    baz  "), is(" foo bar baz "));
     }
 
+    @Test
+    public void ascii() throws Exception {
+        assertTrue(UnderscoreString.ascii("ascii").isPresent());
+        assertThat(UnderscoreString.ascii("ascii").get(), is("ascii"));
+        assertFalse(UnderscoreString.ascii("Et ça sera sa moitié").isPresent());
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;

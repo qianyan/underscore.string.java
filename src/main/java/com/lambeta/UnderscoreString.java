@@ -475,4 +475,28 @@ public class UnderscoreString {
     public static String collapseWhitespaces(String s) {
         return CharMatcher.WHITESPACE.collapseFrom(s, ' ');
     }
+
+    public static Optional<String> ascii(String s) {
+        List<Character> chars = Chars.asList(nullToEmpty(s).toCharArray());
+
+        return from(chars).transform(isAscii()).allMatch(is(true)) ? Optional.<String>of(s) : Optional.<String>absent();
+    }
+
+    private static Predicate<Boolean> is(final boolean b) {
+        return new Predicate<Boolean>() {
+            @Override
+            public boolean apply(Boolean isAscii) {
+                return isAscii == b;
+            }
+        };
+    }
+
+    private static Function<Character, Boolean> isAscii() {
+        return new Function<Character, Boolean>() {
+            @Override
+            public Boolean apply(Character c) {
+                return (int) c < 128;
+            }
+        };
+    }
 }

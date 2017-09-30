@@ -533,9 +533,9 @@ Return *Optional<String> s* if s contains both upper and lower case letters.
 import static com.lambeta.Underscorestring.mixedCase;
 
 mixedCase("1AB");
-// -> Optional.absent();
+// -> Optional.<String>absent();
 mixedCase("FooBar");
-// -> Optional.of("FooBar")
+// -> Optional.<String>of("FooBar")
 ```
 ### collapseWhitespaces
 Convert all adjacent whitespace in s to a single space.
@@ -544,4 +544,14 @@ import static com.lambeta.Underscorestring.collapseWhitespaces;
 
 collapseWhitespaces("foo    bar    baz");
 // -> "foo bar baz"
+```
+### ascii
+
+```java
+import static com.lambeta.Underscorestring.ascii;
+
+UnderscoreString.ascii("ascii");
+// -> Optional<String>.of("ascii")
+UnderscoreString.ascii("Et ça sera sa moitié");
+// -> Optional<String>.absent()
 ```
