@@ -453,7 +453,7 @@ public class UnderscoreString {
         return new Function<Character, Character>() {
             @Override
             public Character apply(Character c) {
-                return dictionary.getOrDefault(c, c);
+                return dictionary.containsKey(c) ? dictionary.get(c) : c;
             }
         };
     }
