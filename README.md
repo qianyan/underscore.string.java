@@ -512,12 +512,12 @@ pascalize("PascalCase");
 // -> "PascalCase"
 ```
 ### translate
-Translate all characters in s according to the mappings found in tmap.
+Translate all characters in s according to the mappings found in *tmap (second arg)*.
 
-Any characters found in the set delete-chars will be pruned prior to
-consulting tmap.
+Any characters found in the set *delete-chars (third arg)* will be pruned prior to
+consulting *tmap*.
 
-Any characters mapping to nil in tmap will also be deleted.
+Any characters mapping to `null` in *tmap* will also be deleted.
 
 ```java
 import static com.lambeta.Underscorestring.translate;
@@ -528,7 +528,7 @@ translate("ababa", new HashMap<Character, Character>(){{put('a', 'b');}}, new Ha
 // -> "bbb"
 ```
 ### mixedCase
-Return *Optional<String> s* if s contains both upper and lower case letters.
+Return `Optional<String> s` if s contains both upper and lower case letters.
 ```java
 import static com.lambeta.Underscorestring.mixedCase;
 
@@ -546,7 +546,7 @@ collapseWhitespaces("foo    bar    baz");
 // -> "foo bar baz"
 ```
 ### ascii
-Return *Optional<String> s* if s only contains ASCII characters.
+Return `Optional<String> s` if s only contains ASCII characters.
 ```java
 import static com.lambeta.Underscorestring.ascii;
 
