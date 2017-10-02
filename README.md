@@ -555,4 +555,13 @@ UnderscoreString.ascii("ascii");
 UnderscoreString.ascii("Et ça sera sa moitié");
 // -> Optional<String>.absent()
 ```
+### chomp
+Return a new string with `\r\n`, `\n` or `\r` removed from the end.
+```java
+import static com.lambeta.Underscorestring.chomp;
 
+UnderscoreString.chomp("foo\n");
+// -> "foo"
+UnderscoreString.chomp("foo\n\r");
+// -> "foo\n"
+```

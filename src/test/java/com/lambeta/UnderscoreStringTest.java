@@ -458,6 +458,15 @@ public class UnderscoreStringTest {
         assertFalse(UnderscoreString.ascii("Et ça sera sa moitié").isPresent());
     }
 
+    @Test
+    public void chomp() throws Exception {
+        assertThat(UnderscoreString.chomp(""), is(""));
+        assertThat(UnderscoreString.chomp("foo"), is("foo"));
+        assertThat(UnderscoreString.chomp("foo\n"), is("foo"));
+        assertThat(UnderscoreString.chomp("foo\r\n"), is("foo"));
+        assertThat(UnderscoreString.chomp("foo\n\r"), is("foo\n"));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;

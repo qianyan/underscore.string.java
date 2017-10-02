@@ -446,7 +446,9 @@ public class UnderscoreString {
 
     public static String translate(String str, HashMap<Character, Character> dictionary, HashSet<Character> deletedChars) {
         List<Character> chars = Chars.asList(nullToEmpty(str).toCharArray());
-        return from(chars).filter(without(deletedChars)).transform(in(dictionary)).filter(without(new HashSet<Character>(){{add(null);}})).join(on(""));
+        return from(chars).filter(without(deletedChars)).transform(in(dictionary)).filter(without(new HashSet<Character>() {{
+            add(null);
+        }})).join(on(""));
     }
 
     private static Function<Character, Character> in(final HashMap<Character, Character> dictionary) {
@@ -498,5 +500,17 @@ public class UnderscoreString {
                 return (int) c < 128;
             }
         };
+    }
+
+    public static String chomp(String s) {
+        if (s.endsWith("\r\n")) {
+            return s.substring(0, s.length() - 2);
+        }
+
+        if (s.endsWith("\r") || s.endsWith("\n")) {
+            return s.substring(0, s.length() - 1);
+        }
+
+        return s;
     }
 }
