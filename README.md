@@ -546,7 +546,7 @@ collapseWhitespaces("foo    bar    baz");
 // -> "foo bar baz"
 ```
 ### ascii
-
+Return *Optional<String> s* if s only contains ASCII characters.
 ```java
 import static com.lambeta.Underscorestring.ascii;
 
@@ -555,3 +555,4 @@ UnderscoreString.ascii("ascii");
 UnderscoreString.ascii("Et ça sera sa moitié");
 // -> Optional<String>.absent()
 ```
+
