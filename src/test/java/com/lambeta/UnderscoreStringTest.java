@@ -477,6 +477,15 @@ public class UnderscoreStringTest {
         assertFalse(UnderscoreString.startsWith("ß", "ss", true));
     }
 
+    @Test
+    public void endsWith() throws Exception {
+        assertTrue(UnderscoreString.endsWith("foobar", "bar"));
+        assertFalse(UnderscoreString.endsWith("fooBar", "bar"));
+        assertTrue(UnderscoreString.endsWith("fooBar", "bar", true));
+        assertTrue(UnderscoreString.endsWith("aß", "ß"));
+        assertTrue(UnderscoreString.endsWith("aß", "ß", true));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;

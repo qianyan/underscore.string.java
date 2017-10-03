@@ -522,4 +522,12 @@ public class UnderscoreString {
     public static boolean startsWith(String s, String prefix, boolean ignoreCase) {
         return ignoreCase ? s.substring(0, min(s.length(), prefix.length())).equalsIgnoreCase(prefix) : s.startsWith(prefix);
     }
+
+    public static boolean endsWith(String s, String suffix) {
+        return endsWith(s, suffix, false);
+    }
+
+    public static boolean endsWith(String s, String suffix, boolean ignoreCase) {
+        return ignoreCase ? s.substring(s.length() - min(s.length(), suffix.length())).equalsIgnoreCase(suffix) : s.endsWith(suffix);
+    }
 }

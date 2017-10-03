@@ -577,3 +577,15 @@ startsWith("foo", "foobar");
 startsWith("Foo", "foo", true);
 // -> true
 ```
+### endsWith
+Return true if s ends with suffix. If the third argument is provided as `true`, the string comparison is insensitive to case.
+```java
+import static com.lambeta.Underscorestring.endsWith;
+
+endsWith("foobar", "bar");
+// -> true
+endsWith("fooBar", "bar");
+// -> false
+endsWith("fooBar", "bar", true);
+// -> true
+```
