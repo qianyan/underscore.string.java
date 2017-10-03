@@ -467,6 +467,16 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.chomp("foo\n\r"), is("foo\n"));
     }
 
+    @Test
+    public void startsWith() throws Exception {
+        assertTrue(UnderscoreString.startsWith("foo", "foo"));
+        assertFalse(UnderscoreString.startsWith("foo", "foobar"));
+        assertFalse(UnderscoreString.startsWith("Foo", "foo"));
+        assertTrue(UnderscoreString.startsWith("Foo", "foo", true));
+        assertFalse(UnderscoreString.startsWith("ß", "SS", true));
+        assertFalse(UnderscoreString.startsWith("ß", "ss", true));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;

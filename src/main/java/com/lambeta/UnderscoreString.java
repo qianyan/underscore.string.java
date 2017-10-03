@@ -24,6 +24,7 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.collect.FluentIterable.from;
 import static com.google.common.collect.Iterables.toArray;
+import static java.lang.Math.min;
 import static java.lang.String.format;
 
 public class UnderscoreString {
@@ -344,7 +345,7 @@ public class UnderscoreString {
         String[] token0 = reseq(numberRegex.matcher(str0));
         String[] token1 = reseq(numberRegex.matcher(str1));
 
-        int minSize = Math.min(token0.length, token1.length);
+        int minSize = min(token0.length, token1.length);
 
         for (int i = 0; i < minSize; i++) {
             String a = token0[i];
@@ -389,7 +390,7 @@ public class UnderscoreString {
         String[] reseq = reseq(Pattern.compile("^[\\s\\t]*", Pattern.MULTILINE).matcher(str));
         int indent = reseq[0].length();
         for (int i = 1; i < reseq.length; i++) {
-            indent = Math.min(reseq[i].length(), indent);
+            indent = min(reseq[i].length(), indent);
         }
         return indent;
     }
@@ -512,5 +513,13 @@ public class UnderscoreString {
         }
 
         return s;
+    }
+
+    public static boolean startsWith(String s, String prefix) {
+        return startsWith(s, prefix, false);
+    }
+
+    public static boolean startsWith(String s, String prefix, boolean ignoreCase) {
+        return ignoreCase ? s.substring(0, min(s.length(), prefix.length())).equalsIgnoreCase(prefix) : s.startsWith(prefix);
     }
 }

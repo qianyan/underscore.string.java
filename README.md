@@ -565,3 +565,15 @@ UnderscoreString.chomp("foo\n");
 UnderscoreString.chomp("foo\n\r");
 // -> "foo\n"
 ```
+### startsWith
+Return true if s starts with prefix. If the third argument is provided as `true`, the string comparison is insensitive to case.
+```java
+import static com.lambeta.Underscorestring.startsWith;
+
+UnderscoreString.startsWith("foo", "foo");
+// -> true
+UnderscoreString.startsWith("foo", "foobar");
+// -> false
+UnderscoreString.startsWith("Foo", "foo", true);
+// -> true
+```
