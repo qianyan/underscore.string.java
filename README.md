@@ -550,9 +550,9 @@ Return `Optional<String> s` if s only contains ASCII characters.
 ```java
 import static com.lambeta.Underscorestring.ascii;
 
-UnderscoreString.ascii("ascii");
+ascii("ascii");
 // -> Optional<String>.of("ascii")
-UnderscoreString.ascii("Et ça sera sa moitié");
+ascii("Et ça sera sa moitié");
 // -> Optional<String>.absent()
 ```
 ### chomp
@@ -560,9 +560,9 @@ Return a new string with `\r\n`, `\n` or `\r` removed from the end.
 ```java
 import static com.lambeta.Underscorestring.chomp;
 
-UnderscoreString.chomp("foo\n");
+chomp("foo\n");
 // -> "foo"
-UnderscoreString.chomp("foo\n\r");
+chomp("foo\n\r");
 // -> "foo\n"
 ```
 ### startsWith
@@ -570,10 +570,10 @@ Return true if s starts with prefix. If the third argument is provided as `true`
 ```java
 import static com.lambeta.Underscorestring.startsWith;
 
-UnderscoreString.startsWith("foo", "foo");
+startsWith("foo", "foo");
 // -> true
-UnderscoreString.startsWith("foo", "foobar");
+startsWith("foo", "foobar");
 // -> false
-UnderscoreString.startsWith("Foo", "foo", true);
+startsWith("Foo", "foo", true);
 // -> true
 ```
