@@ -533,7 +533,7 @@ public class UnderscoreString {
     }
 
     /**
-     * Based on the implementation here: https://github.com/hiddentao/fast-levenshtein
+     * https://en.wikipedia.org/wiki/Levenshtein_distance
      */
     public static int levenshtein(String s, String s1) {
         String ss = nullToEmpty(s);
@@ -547,29 +547,29 @@ public class UnderscoreString {
             return 0;
         }
 
-        int[] prevRow = new int[ss1.length() + 1];
-        for (int i = 0; i < prevRow.length; i++) {
-            prevRow[i] = i;
+        int[] previousRow = new int[ss1.length() + 1];
+        for (int i = 0; i < previousRow.length; i++) {
+            previousRow[i] = i; // target prefixes can be reached from empty source prefix by inserting every character
         }
 
-        int nextCol = 0;
         for (int i = 0; i < ss.length(); i++) {
-            nextCol = i + 1;
-            int j = 0;
-            for (; j < ss1.length(); j++) {
-                int curCol = nextCol;
-                nextCol = prevRow[j] + (ss.charAt(i) == ss1.charAt(j) ? 0 : 1);
+            int valueOfNextColumn = i + 1; // source prefixes can be transformed into empty string by dropping all characters
+            for (int j = 0; j < ss1.length(); j++) {
+                int valueOfCurrentColumn = valueOfNextColumn;
+                // substitution (d[i][j] + cost)
+                int substitutionCost = (ss.charAt(i) == ss1.charAt(j) ? 0 : 1);
+                valueOfNextColumn = previousRow[j] + substitutionCost;
+                // insertion (d[i+1][j] + 1)
+                valueOfNextColumn = min(valueOfNextColumn, valueOfCurrentColumn + 1);
+                // deletion (d[i][j+1] + 1)
+                valueOfNextColumn = min(valueOfNextColumn, previousRow[j + 1] + 1);
 
-                nextCol = min(nextCol, curCol + 1);
-
-                nextCol = min(nextCol, prevRow[j + 1] + 1);
-
-                prevRow[j] = curCol;
+                previousRow[j] = valueOfCurrentColumn;
             }
 
-            prevRow[j] = nextCol;
+            previousRow[previousRow.length - 1] = valueOfNextColumn;
         }
 
-        return nextCol;
+        return previousRow[previousRow.length - 1];
     }
 }
