@@ -589,3 +589,19 @@ endsWith("fooBar", "bar");
 endsWith("fooBar", "bar", true);
 // -> true
 ```
+### levenshtein
+Get the edit distance between s1 and s2.
+```java
+import static com.lambeta.Underscorestring.levenshtein;
+
+levenshtein("Godfather", "Godfather");
+// -> 0
+levenshtein("Godfather", "Gdfthr");
+// -> 3
+levenshtein("因為我是中國人所以我會說中文", "因為我是英國人所以我會說英文");
+// -> 2
+levenshtein("lol", null);
+// -> 3
+levenshtein(null, "lol");
+// -> 3
+```

@@ -24,6 +24,7 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Strings.nullToEmpty;
 import static com.google.common.collect.FluentIterable.from;
 import static com.google.common.collect.Iterables.toArray;
+import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.String.format;
 
@@ -529,5 +530,46 @@ public class UnderscoreString {
 
     public static boolean endsWith(String s, String suffix, boolean ignoreCase) {
         return ignoreCase ? s.substring(s.length() - min(s.length(), suffix.length())).equalsIgnoreCase(suffix) : s.endsWith(suffix);
+    }
+
+    /**
+     * Based on the implementation here: https://github.com/hiddentao/fast-levenshtein
+     */
+    public static int levenshtein(String s, String s1) {
+        String ss = nullToEmpty(s);
+        String ss1 = nullToEmpty(s1);
+
+        if (ss.isEmpty() || ss1.isEmpty()) {
+            return max(ss.length(), ss1.length());
+        }
+
+        if (ss.equals(ss1)) {
+            return 0;
+        }
+
+        int[] prevRow = new int[ss1.length() + 1];
+        for (int i = 0; i < prevRow.length; i++) {
+            prevRow[i] = i;
+        }
+
+        int nextCol = 0;
+        for (int i = 0; i < ss.length(); i++) {
+            nextCol = i + 1;
+            int j = 0;
+            for (; j < ss1.length(); j++) {
+                int curCol = nextCol;
+                nextCol = prevRow[j] + (ss.charAt(i) == ss1.charAt(j) ? 0 : 1);
+
+                nextCol = min(nextCol, curCol + 1);
+
+                nextCol = min(nextCol, prevRow[j + 1] + 1);
+
+                prevRow[j] = curCol;
+            }
+
+            prevRow[j] = nextCol;
+        }
+
+        return nextCol;
     }
 }

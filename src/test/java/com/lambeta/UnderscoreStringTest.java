@@ -486,6 +486,20 @@ public class UnderscoreStringTest {
         assertTrue(UnderscoreString.endsWith("aß", "ß", true));
     }
 
+    @Test
+    public void levenshtein() throws Exception {
+        assertThat(UnderscoreString.levenshtein("Godfather", "Godfather"), is(0));
+        assertThat(UnderscoreString.levenshtein("Godfather", "Godfathe"), is(1));
+        assertThat(UnderscoreString.levenshtein("Godfather", "odfather"), is(1));
+        assertThat(UnderscoreString.levenshtein("Godfather", "godfather"), is(1));
+        assertThat(UnderscoreString.levenshtein("Godfather", "Gdfthr"), is(3));
+        assertThat(UnderscoreString.levenshtein("seven", "eight"), is(5));
+        assertThat(UnderscoreString.levenshtein("因為我是中國人所以我會說中文", "因為我是英國人所以我會說英文"), is(2));
+        assertThat(UnderscoreString.levenshtein("lol", null), is(3));
+        assertThat(UnderscoreString.levenshtein(null, "lol"), is(3));
+
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
