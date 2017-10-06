@@ -605,3 +605,12 @@ levenshtein("lol", null);
 levenshtein(null, "lol");
 // -> 3
 ```
+### hamming
+Get the hamming distance between s1 and s2.
+refer to [hamming distance.](https://en.wikipedia.org/wiki/Hamming_distance)
+```java
+import static com.lambeta.Underscorestring.hamming;
+
+hamming("karolin", "kerstin");
+// -> 3
+```

@@ -1,6 +1,7 @@
 package com.lambeta;
 
 import com.google.common.base.*;
+import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.google.common.primitives.Chars;
@@ -8,14 +9,12 @@ import com.google.common.primitives.Chars;
 import java.math.BigDecimal;
 import java.text.Normalizer;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.google.common.base.Joiner.on;
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.base.Predicates.not;
@@ -571,5 +570,20 @@ public class UnderscoreString {
         }
 
         return previousRow[previousRow.length - 1];
+    }
+
+    public static int hamming(String s, String s1) {
+        checkArgument(s.length() == s1.length(), "The two strings should be equal length.");
+
+        int count = 0;
+        int size = s.length();
+
+        for (int i = 0; i < size; i++) {
+            if (s.charAt(i) != s1.charAt(i)) {
+                count++;
+            }
+        }
+
+        return count;
     }
 }

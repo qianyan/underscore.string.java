@@ -497,7 +497,14 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.levenshtein("因為我是中國人所以我會說中文", "因為我是英國人所以我會說英文"), is(2));
         assertThat(UnderscoreString.levenshtein("lol", null), is(3));
         assertThat(UnderscoreString.levenshtein(null, "lol"), is(3));
+    }
 
+    @Test
+    public void hamming() throws Exception {
+        assertThat(UnderscoreString.hamming("karolin", "kathrin"), is(3));
+        assertThat(UnderscoreString.hamming("karolin", "kerstin"), is(3));
+        assertThat(UnderscoreString.hamming("1011101", "1001001"), is(2));
+        assertThat(UnderscoreString.hamming("2173896", "2233796"), is(3));
     }
 
     @SafeVarargs
