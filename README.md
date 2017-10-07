@@ -614,3 +614,14 @@ import static com.lambeta.Underscorestring.hamming;
 hamming("karolin", "kerstin");
 // -> 3
 ```
+### longestCommonSubstring
+Returns the set of the longest common substrings in s1 and s2.
+
+This implementation uses dynamic programming, and not a generalized
+suffix tree, so the runtime is O(nm).
+```java
+import static com.lambeta.Underscorestring.longestCommonSubstring;
+
+longestCommonSubstring("fooquxbar", "foobar");
+// -> {"foo", "bar"} 
+```

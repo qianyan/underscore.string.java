@@ -1,11 +1,9 @@
 package com.lambeta;
 
+import com.google.common.collect.Sets;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -507,8 +505,21 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.hamming("2173896", "2233796"), is(3));
     }
 
+    @Test
+    public void longestCommonSubstring() throws Exception {
+        assertThat(UnderscoreString.longestCommonSubstring("fooquxbar", "foobar"), is(_s("foo", "bar")));
+        assertThat(UnderscoreString.longestCommonSubstring("FOOquxbar", "foobar"), is(_s("bar")));
+        assertThat(UnderscoreString.longestCommonSubstring("foo", "bar"), is(_s()));
+    }
+
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
     }
+
+    @SafeVarargs
+    private static <T> Set<T> _s(T... args) {
+        return Sets.newHashSet(args);
+    }
+
 }

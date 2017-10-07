@@ -586,4 +586,34 @@ public class UnderscoreString {
 
         return count;
     }
+
+    /**
+     * https://en.wikipedia.org/wiki/Longest_common_substring_problem
+     */
+    public static Set<String> longestCommonSubstring(String s, String s1) {
+        int[][] l = new int[s.length()][s1.length()];
+        int z = 0;
+        Set<String> result = Sets.newHashSet();
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = 0; j < s1.length(); j++) {
+                if (s.charAt(i) == s1.charAt(j)) {
+                    if (i == 0 || j == 0) {
+                        l[i][j] = 1;
+                    } else {
+                        l[i][j] = l[i - 1][j - 1] + 1;
+                    }
+
+                    if (l[i][j] > z) {
+                        z = l[i][j];
+                        result = Sets.newHashSet(s.substring(i - z + 1, i + 1));
+                    } else if (l[i][j] == z) {
+                        result.add(s.substring(i - z + 1, i + 1));
+                    }
+                } else {
+                    l[i][j] = 0;
+                }
+            }
+        }
+        return result;
+    }
 }
