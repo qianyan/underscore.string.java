@@ -573,13 +573,15 @@ public class UnderscoreString {
     }
 
     public static int hamming(String s, String s1) {
-        checkArgument(s.length() == s1.length(), "The two strings should be equal length.");
+        String ss = nullToEmpty(s);
+        String ss1 = nullToEmpty(s1);
+        checkArgument(ss.length() == ss1.length(), "The two strings should be equal length.");
 
         int count = 0;
-        int size = s.length();
+        int size = ss.length();
 
         for (int i = 0; i < size; i++) {
-            if (s.charAt(i) != s1.charAt(i)) {
+            if (ss.charAt(i) != ss1.charAt(i)) {
                 count++;
             }
         }
@@ -591,12 +593,14 @@ public class UnderscoreString {
      * https://en.wikipedia.org/wiki/Longest_common_substring_problem
      */
     public static Set<String> longestCommonSubstring(String s, String s1) {
-        int[][] l = new int[s.length()][s1.length()];
+        String ss = nullToEmpty(s);
+        String ss1 = nullToEmpty(s1);
+        int[][] l = new int[ss.length()][ss1.length()];
         int z = 0;
         Set<String> result = Sets.newHashSet();
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = 0; j < s1.length(); j++) {
-                if (s.charAt(i) == s1.charAt(j)) {
+        for (int i = 0; i < ss.length(); i++) {
+            for (int j = 0; j < ss1.length(); j++) {
+                if (ss.charAt(i) == ss1.charAt(j)) {
                     if (i == 0 || j == 0) {
                         l[i][j] = 1;
                     } else {
@@ -605,9 +609,9 @@ public class UnderscoreString {
 
                     if (l[i][j] > z) {
                         z = l[i][j];
-                        result = Sets.newHashSet(s.substring(i - z + 1, i + 1));
+                        result = Sets.newHashSet(ss.substring(i - z + 1, i + 1));
                     } else if (l[i][j] == z) {
-                        result.add(s.substring(i - z + 1, i + 1));
+                        result.add(ss.substring(i - z + 1, i + 1));
                     }
                 } else {
                     l[i][j] = 0;

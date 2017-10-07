@@ -503,6 +503,8 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.hamming("karolin", "kerstin"), is(3));
         assertThat(UnderscoreString.hamming("1011101", "1001001"), is(2));
         assertThat(UnderscoreString.hamming("2173896", "2233796"), is(3));
+        assertThat(UnderscoreString.hamming(null, ""), is(0));
+        assertThat(UnderscoreString.hamming("", null), is(0));
     }
 
     @Test
@@ -510,6 +512,8 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.longestCommonSubstring("fooquxbar", "foobar"), is(_s("foo", "bar")));
         assertThat(UnderscoreString.longestCommonSubstring("FOOquxbar", "foobar"), is(_s("bar")));
         assertThat(UnderscoreString.longestCommonSubstring("foo", "bar"), is(UnderscoreStringTest.<String>_s()));
+        assertThat(UnderscoreString.longestCommonSubstring(null, ""), is(UnderscoreStringTest.<String>_s()));
+        assertThat(UnderscoreString.longestCommonSubstring("", null), is(UnderscoreStringTest.<String>_s()));
     }
 
     @SafeVarargs
