@@ -509,7 +509,7 @@ public class UnderscoreStringTest {
     public void longestCommonSubstring() throws Exception {
         assertThat(UnderscoreString.longestCommonSubstring("fooquxbar", "foobar"), is(_s("foo", "bar")));
         assertThat(UnderscoreString.longestCommonSubstring("FOOquxbar", "foobar"), is(_s("bar")));
-        assertThat(UnderscoreString.longestCommonSubstring("foo", "bar"), is(_s()));
+        assertThat(UnderscoreString.longestCommonSubstring("foo", "bar"), is(UnderscoreStringTest.<String>_s()));
     }
 
     @SafeVarargs
