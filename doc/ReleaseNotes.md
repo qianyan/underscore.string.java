@@ -1,3 +1,22 @@
+# Release 0.2.0 (08-Oct-2017)
+## Added features
+- [x] commonPrefix
+- [x] commonSuffix
+- [x] chopPrefix
+- [x] chopSuffix
+- [x] screamingUnderscored
+- [x] stripAccents
+- [x] pascalize
+- [x] translate
+- [x] mixedCase
+- [x] collapseWhitespaces
+- [x] ascii
+- [x] chomp
+- [x] startsWith
+- [x] endsWith
+- [x] levenshtein
+- [x] hamming
+- [x] longestCommonSubstring
 # Release 0.1.0 (17-Sep-2017)
 * slugify supports transforming non-ascii to ascii.
 # Release 0.0.1 (06-Sep-2017)
