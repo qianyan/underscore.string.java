@@ -11,6 +11,8 @@ A library for Java String manipulation
 More details in [Release Notes](doc/ReleaseNotes.md)
 
 [An introduction blog here](https://lambeta.com/2017/09/06/Underscore-string-java/)
+
+[sync gitee repo](https://gitee.com/lambeta/underscore.string.java)
 ## Prerequisites
 * java >= 1.6
 * guava 18.0
