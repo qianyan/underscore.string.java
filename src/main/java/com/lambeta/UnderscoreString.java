@@ -595,26 +595,27 @@ public class UnderscoreString {
     public static Set<String> longestCommonSubstring(String s, String s1) {
         String ss = nullToEmpty(s);
         String ss1 = nullToEmpty(s1);
-        int[][] l = new int[ss.length()][ss1.length()];
-        int z = 0;
+        int[][] lengths = new int[ss.length()][ss1.length()];
+        int longestLength = 0;
         Set<String> result = Sets.newHashSet();
         for (int i = 0; i < ss.length(); i++) {
             for (int j = 0; j < ss1.length(); j++) {
                 if (ss.charAt(i) == ss1.charAt(j)) {
                     if (i == 0 || j == 0) {
-                        l[i][j] = 1;
+                        lengths[i][j] = 1;
                     } else {
-                        l[i][j] = l[i - 1][j - 1] + 1;
+                        lengths[i][j] = lengths[i - 1][j - 1] + 1;
                     }
 
-                    if (l[i][j] > z) {
-                        z = l[i][j];
-                        result = Sets.newHashSet(ss.substring(i - z + 1, i + 1));
-                    } else if (l[i][j] == z) {
-                        result.add(ss.substring(i - z + 1, i + 1));
+                    //  swap or append longest common substring.
+                    if (lengths[i][j] > longestLength) {
+                        longestLength = lengths[i][j];
+                        result = Sets.newHashSet(ss.substring(i - longestLength + 1, i + 1));
+                    } else if (lengths[i][j] == longestLength) {
+                        result.add(ss.substring(i - longestLength + 1, i + 1));
                     }
                 } else {
-                    l[i][j] = 0;
+                    lengths[i][j] = 0;
                 }
             }
         }
