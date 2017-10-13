@@ -459,6 +459,7 @@ public class UnderscoreStringTest {
     @Test
     public void chomp() throws Exception {
         assertThat(UnderscoreString.chomp(""), is(""));
+        assertThat(UnderscoreString.chomp(null), is(""));
         assertThat(UnderscoreString.chomp("foo"), is("foo"));
         assertThat(UnderscoreString.chomp("foo\n"), is("foo"));
         assertThat(UnderscoreString.chomp("foo\r\n"), is("foo"));

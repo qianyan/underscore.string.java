@@ -504,15 +504,16 @@ public class UnderscoreString {
     }
 
     public static String chomp(String s) {
-        if (s.endsWith("\r\n")) {
-            return s.substring(0, s.length() - 2);
+        String ss = nullToEmpty(s);
+        if (ss.endsWith("\r\n")) {
+            return ss.substring(0, ss.length() - 2);
         }
 
-        if (s.endsWith("\r") || s.endsWith("\n")) {
-            return s.substring(0, s.length() - 1);
+        if (ss.endsWith("\r") || ss.endsWith("\n")) {
+            return ss.substring(0, ss.length() - 1);
         }
 
-        return s;
+        return ss;
     }
 
     public static boolean startsWith(String s, String prefix) {
