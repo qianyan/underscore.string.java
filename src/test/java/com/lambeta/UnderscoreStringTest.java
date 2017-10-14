@@ -189,6 +189,20 @@ public class UnderscoreStringTest {
     }
 
     @Test
+    public void replaceZeroLengthMatcherWith() throws Exception {
+        assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("GL11Version", " "), is("GL 11 Version"));
+        assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("May9", " "), is("May 9"));
+        assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("lowercase", " "), is("lowercase"));
+        assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("Class", " "), is("Class"));
+        assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("MyClass", " "), is("My Class"));
+        assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("HTML", " "), is("HTML"));
+        assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("PDFLoader", " "), is("PDF Loader"));
+        assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("AString", " "), is("A String"));
+        assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("SimpleXMLParser", " "), is("Simple XML Parser"));
+
+    }
+
+    @Test
     public void surround() throws Exception {
         assertThat(UnderscoreString.surround("'", "\""), is("\"'\""));
         assertThat(UnderscoreString.surround("foo", "|"), is("|foo|"));

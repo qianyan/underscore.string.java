@@ -593,3 +593,43 @@ import static com.lambeta.Underscorestring.longestCommonSubstring;
 longestCommonSubstring("fooquxbar", "foobar");
 // -> {"foo", "bar"} 
 ```
+## New Features in 0.2.1-SNAPSHOT
+### gradle
+```gradle
+repositories {
+    maven {
+        url 'https://oss.sonatype.org/content/groups/public'
+    }
+}
+
+dependencies {
+    compile ("com.lambeta:underscore.string.java:0.2.1-SNAPSHOT")
+}
+
+```
+### maven
+```xml
+<repositories>
+    <repository>
+      <id>my-repo</id>
+      <name>sonatype</name>
+      <url>https://oss.sonatype.org/content/groups/public</url>
+    </repository>
+</repositories>
+
+<dependency>
+    <groupId>com.lambeta</groupId>
+    <artifactId>underscore.string.java</artifactId>
+    <version>0.2.1-SNAPSHOT</version>
+</dependency>
+```
+### replaceZeroWidthDelimiterWith
+Replaces the zero width delimiter between two Uppercase characters or character and number and so on.
+```java
+import static com.lambeta.Underscorestring.replaceZeroWidthDelimiterWith;
+
+replaceZeroWidthDelimiterWith("GL11Version", " ");
+// -> "GL 11 Version"
+replaceZeroWidthDelimiterWith("SimpleXMLParser", " ");
+// -> "Simple XML Parser"
+```

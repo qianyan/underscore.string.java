@@ -28,8 +28,6 @@ import static java.lang.Math.min;
 import static java.lang.String.format;
 
 public class UnderscoreString {
-    private static final String UPPER_UPPER_LOWER_CASE = "(\\p{Upper})(\\p{Upper}[\\p{Lower}0-9])";
-    private static final String LOWER_UPPER_CASE = "(\\p{Lower})(\\p{Upper})";
 
     public static String capitalize(String word) {
         return onCapitalize(word, true);
@@ -147,12 +145,12 @@ public class UnderscoreString {
     }
 
     public static String dasherize(String sentence) {
-        String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_HYPHEN, CharMatcher.WHITESPACE.collapseFrom(trim(upperUnderscored(sentence)), '-'));
+        String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_HYPHEN, CharMatcher.WHITESPACE.collapseFrom(trim(replaceZeroWidthDelimiterWith(sentence, "_")), '-'));
         return cleanBy(to, '-');
     }
 
     public static String underscored(String sentence) {
-        String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_UNDERSCORE, CharMatcher.anyOf("- ").collapseFrom((upperUnderscored(trim(sentence))), '_'));
+        String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_UNDERSCORE, CharMatcher.anyOf("- ").collapseFrom(replaceZeroWidthDelimiterWith(trim(sentence), "_"), '_'));
         return cleanBy(to, '_');
     }
 
@@ -225,8 +223,11 @@ public class UnderscoreString {
         return CharMatcher.anyOf(String.valueOf(from)).replaceFrom(sentence, to);
     }
 
-    private static String upperUnderscored(String sentence) {
-        return on('_').join(sentence.replaceAll(UPPER_UPPER_LOWER_CASE, "$1 $2").replaceAll(LOWER_UPPER_CASE, "$1 $2").split(" "));
+    public static String replaceZeroWidthDelimiterWith(String sentence, String replacement) {
+        return sentence.replaceAll(format("%s|%s|%s",
+                "(?<=[A-Z])(?=[A-Z][a-z])",
+                "(?<=[^A-Z])(?=[A-Z])",
+                "(?<=[A-Za-z])(?=[^A-Za-z])"), replacement);
     }
 
     public static String toSentence(String[] strings) {
