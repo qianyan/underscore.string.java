@@ -3,6 +3,21 @@ apply plugin: 'idea'
 apply plugin: 'signing'
 apply plugin: 'maven'
 
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "gradle.plugin.org.gradle.java:experimental-jigsaw:0.1.1"
+  }
+}
+
+apply plugin: "org.gradle.java.experimental-jigsaw"
+
+javaModule.name = 'com.lambeta.underscorestring'
+
 repositories {
     mavenCentral()
 }
