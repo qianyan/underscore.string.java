@@ -17,8 +17,8 @@ ext {
 }
 
 dependencies {
-    compile ("com.google.guava:guava:$guavaVersion")
-    testCompile ("junit:junit:$junitVersion", "org.mockito:mockito-core:$mockitoVersion")
+    implementation ("com.google.guava:guava:$guavaVersion")
+    testImplementation ("junit:junit:$junitVersion", "org.mockito:mockito-core:$mockitoVersion")
 }
 
 uploadArchives {
@@ -106,5 +106,5 @@ tasks.withType(JavaCompile) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '4.2'
 }
