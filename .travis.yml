@@ -1,6 +1,8 @@
-dist: precise
 language: java
 jdk: oraclejdk9
+
+sudo: false
+dist: trusty
 
 script:
   "./gradlew check -i"
