@@ -1,20 +1,10 @@
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'signing'
-apply plugin: 'maven'
-
-buildscript {
-  repositories {
-    maven {
-      url "https://plugins.gradle.org/m2/"
-    }
-  }
-  dependencies {
-    classpath "gradle.plugin.org.gradle.java:experimental-jigsaw:0.1.1"
-  }
+plugins {
+    id 'java-library'
+    id 'idea'
+    id 'signing'
+    id 'maven'
+    id 'org.gradle.java.experimental-jigsaw' version '0.1.1'
 }
-
-apply plugin: "org.gradle.java.experimental-jigsaw"
 
 javaModule.name = 'com.lambeta.underscorestring'
 
@@ -32,8 +22,8 @@ ext {
 }
 
 dependencies {
-    compile ("com.google.guava:guava:$guavaVersion")
-    testCompile ("junit:junit:$junitVersion", "org.mockito:mockito-core:$mockitoVersion")
+    implementation ("com.google.guava:guava:$guavaVersion")
+    testImplementation ("junit:junit:$junitVersion", "org.mockito:mockito-core:$mockitoVersion")
 }
 
 uploadArchives {
@@ -94,6 +84,10 @@ jar {
     }
 }
 
+javadoc {
+    excludes = ['module-info.java']
+}
+
 task sourcesJar(type: Jar) {
     from sourceSets.main.allSource
     classifier = 'sources'
@@ -121,5 +115,5 @@ tasks.withType(JavaCompile) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.1'
+    gradleVersion = '4.2'
 }
