@@ -1,31 +1,29 @@
 package com.lambeta;
 
 import com.google.common.base.*;
-import com.google.common.base.Optional;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Sets;
 import com.google.common.primitives.Chars;
 
 import java.math.BigDecimal;
 import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.util.*;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.google.common.base.Joiner.on;
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-import static com.google.common.base.Preconditions.checkState;
-import static com.google.common.base.Predicates.not;
+import static com.google.common.base.Preconditions.*;
 import static com.google.common.base.Splitter.fixedLength;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Strings.nullToEmpty;
-import static com.google.common.collect.FluentIterable.from;
 import static com.google.common.collect.Iterables.toArray;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.String.format;
+import static java.util.stream.Collectors.joining;
 
 public class UnderscoreString {
 
@@ -319,16 +317,13 @@ public class UnderscoreString {
 
     public static String swapCase(String str) {
         List<Character> chars = Chars.asList(nullToEmpty(str).toCharArray());
-        return from(chars).transform(flip()).join(on(""));
+        return chars.stream().map(flip()).collect(joining(""));
     }
 
     private static Function<Character, String> flip() {
-        return new Function<Character, String>() {
-            @Override
-            public String apply(Character ch) {
-                if ('ß' == ch) return "SS";
-                return (Character.isUpperCase(ch) ? Character.toLowerCase(ch) : Character.toUpperCase(ch)) + "";
-            }
+        return ch -> {
+            if ('ß' == ch) return "SS";
+            return (Character.isUpperCase(ch) ? Character.toLowerCase(ch) : Character.toUpperCase(ch)) + "";
         };
     }
 
@@ -442,38 +437,26 @@ public class UnderscoreString {
         return titleize(underscored(s)).replace("_", "");
     }
 
-    public static String translate(String str, HashMap<Character, Character> dictionary) {
-        return translate(str, dictionary, Sets.<Character>newHashSet());
+    public static String translate(String str, Map<Character, Character> dictionary) {
+        return translate(str, dictionary, Set.of());
     }
 
-    public static String translate(String str, HashMap<Character, Character> dictionary, HashSet<Character> deletedChars) {
+    public static String translate(String str, Map<Character, Character> dictionary, Set<Character> deletedChars) {
         List<Character> chars = Chars.asList(nullToEmpty(str).toCharArray());
-        return from(chars).filter(without(deletedChars)).transform(in(dictionary)).filter(without(new HashSet<Character>() {{
-            add(null);
-        }})).join(on(""));
+        return chars.stream().filter(with(deletedChars).negate()).map(in(dictionary)).filter(with(new HashSet<>() {{add(null);}}).negate()).map(Object::toString).collect(joining());
     }
 
-    private static Function<Character, Character> in(final HashMap<Character, Character> dictionary) {
-        return new Function<Character, Character>() {
-            @Override
-            public Character apply(Character c) {
-                return dictionary.containsKey(c) ? dictionary.get(c) : c;
-            }
-        };
+    private static Function<Character, Character> in(final Map<Character, Character> dictionary) {
+        return c -> dictionary.getOrDefault(c, c);
     }
 
-    private static Predicate<Character> without(final HashSet<Character> deletedChars) {
-        return not(new Predicate<Character>() {
-            @Override
-            public boolean apply(Character c) {
-                return deletedChars.contains(c);
-            }
-        });
+    private static Predicate<Character> with(final Set<Character> deletedChars) {
+        return deletedChars::contains;
     }
 
     public static Optional<String> mixedCase(String s) {
         boolean isMixedCase = CharMatcher.JAVA_LOWER_CASE.matchesAnyOf(s) && CharMatcher.JAVA_UPPER_CASE.matchesAnyOf(s);
-        return isMixedCase ? Optional.of(s) : Optional.<String>absent();
+        return isMixedCase ? Optional.of(s) : Optional.empty();
     }
 
     public static String collapseWhitespaces(String s) {
@@ -483,25 +466,15 @@ public class UnderscoreString {
     public static Optional<String> ascii(String s) {
         List<Character> chars = Chars.asList(nullToEmpty(s).toCharArray());
 
-        return from(chars).transform(isAscii()).allMatch(is(true)) ? Optional.<String>of(s) : Optional.<String>absent();
+        return chars.stream().map(isAscii()).allMatch(is(true)) ? Optional.of(s) : Optional.empty();
     }
 
     private static Predicate<Boolean> is(final boolean b) {
-        return new Predicate<Boolean>() {
-            @Override
-            public boolean apply(Boolean isAscii) {
-                return isAscii == b;
-            }
-        };
+        return isAscii -> isAscii == b;
     }
 
     private static Function<Character, Boolean> isAscii() {
-        return new Function<Character, Boolean>() {
-            @Override
-            public Boolean apply(Character c) {
-                return (int) c < 128;
-            }
-        };
+        return c -> (int) c < 128;
     }
 
     public static String chomp(String s) {
@@ -599,7 +572,7 @@ public class UnderscoreString {
         String ss1 = nullToEmpty(s1);
         int[][] lengths = new int[ss.length()][ss1.length()];
         int longestLength = 0;
-        Set<String> result = Sets.newHashSet();
+        Set<String> result = Set.of();
         for (int i = 0; i < ss.length(); i++) {
             for (int j = 0; j < ss1.length(); j++) {
                 if (ss.charAt(i) == ss1.charAt(j)) {
@@ -612,7 +585,8 @@ public class UnderscoreString {
                     //  swap or append longest common substring.
                     if (lengths[i][j] > longestLength) {
                         longestLength = lengths[i][j];
-                        result = Sets.newHashSet(ss.substring(i - longestLength + 1, i + 1));
+                        result = new HashSet<>();
+                        result.add(ss.substring(i - longestLength + 1, i + 1));
                     } else if (lengths[i][j] == longestLength) {
                         result.add(ss.substring(i - longestLength + 1, i + 1));
                     }

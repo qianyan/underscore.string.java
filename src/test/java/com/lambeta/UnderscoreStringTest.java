@@ -1,6 +1,5 @@
 package com.lambeta;
 
-import com.google.common.collect.Sets;
 import org.junit.Test;
 
 import java.util.*;
@@ -440,11 +439,11 @@ public class UnderscoreStringTest {
 
     @Test
     public void translate() throws Exception {
-        assertThat(UnderscoreString.translate("ababa", new HashMap<Character, Character>(){{put('a', 'b');}}), is("bbbbb"));
-        assertThat(UnderscoreString.translate("ababa", new HashMap<Character, Character>(){{put('a', 'b'); put('b', 'a');}}), is("babab"));
-        assertThat(UnderscoreString.translate("ababa", new HashMap<Character, Character>(){{put('a', 'b'); put('b', 'a');}}), is("babab"));
-        assertThat(UnderscoreString.translate("ababa", new HashMap<Character, Character>(){{put('a', 'b');}}, new HashSet<Character>(){{add('b');}}), is("bbb"));
-        assertThat(UnderscoreString.translate("xababa", new HashMap<Character, Character>(){{put('a', null);}}, new HashSet<Character>(){{add('b');}}), is("x"));
+        assertThat(UnderscoreString.translate("ababa", Map.of('a', 'b')), is("bbbbb"));
+        assertThat(UnderscoreString.translate("ababa", Map.of('a', 'b', 'b', 'a')), is("babab"));
+        assertThat(UnderscoreString.translate("ababa", Map.of('a', 'b', 'b', 'a')), is("babab"));
+        assertThat(UnderscoreString.translate("ababa", Map.of('a', 'b'), Set.of('b')), is("bbb"));
+        assertThat(UnderscoreString.translate("xababa", new HashMap<>() {{ put('a', null); }}, Set.of('b')), is("x"));
     }
 
     @Test
@@ -524,21 +523,16 @@ public class UnderscoreStringTest {
 
     @Test
     public void longestCommonSubstring() throws Exception {
-        assertThat(UnderscoreString.longestCommonSubstring("fooquxbar", "foobar"), is(_s("foo", "bar")));
-        assertThat(UnderscoreString.longestCommonSubstring("FOOquxbar", "foobar"), is(_s("bar")));
-        assertThat(UnderscoreString.longestCommonSubstring("foo", "bar"), is(UnderscoreStringTest.<String>_s()));
-        assertThat(UnderscoreString.longestCommonSubstring(null, ""), is(UnderscoreStringTest.<String>_s()));
-        assertThat(UnderscoreString.longestCommonSubstring("", null), is(UnderscoreStringTest.<String>_s()));
+        assertThat(UnderscoreString.longestCommonSubstring("fooquxbar", "foobar"), is(Set.of(new String[]{"foo", "bar"})));
+        assertThat(UnderscoreString.longestCommonSubstring("FOOquxbar", "foobar"), is(Set.of(new String[]{"bar"})));
+        assertThat(UnderscoreString.longestCommonSubstring("foo", "bar"), is(Set.of()));
+        assertThat(UnderscoreString.longestCommonSubstring(null, ""), is(Set.of()));
+        assertThat(UnderscoreString.longestCommonSubstring("", null), is(Set.of()));
     }
 
     @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
-    }
-
-    @SafeVarargs
-    private static <T> Set<T> _s(T... args) {
-        return Sets.newHashSet(args);
     }
 
 }
