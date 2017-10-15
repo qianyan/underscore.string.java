@@ -1,6 +1,5 @@
 underscore.string.java
-[![Build Status](https://travis-ci.org/qianyan/underscore.string.java.svg?branch=master)](https://travis-ci.org/qianyan/underscore.string.java)
-[![CircleCI](https://circleci.com/gh/qianyan/underscore.string.java.svg?style=shield)](https://circleci.com/gh/qianyan/underscore.string.java)
+[![Build Status](https://travis-ci.org/qianyan/underscore.string.java.svg?branch=jigsaw)](https://travis-ci.org/qianyan/underscore.string.java)
 ===
 
 A library for Java String manipulation
