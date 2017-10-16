@@ -68,7 +68,7 @@ uploadArchives {
 
 jar {
     manifest {
-        attributes 'Package': "com.github.qianyan",
+        attributes 'Package': "com.lambeta",
                    'Implementation-Title': "${project.name}",
                    'Implementation-Version': "${version}",
                    'Implementation-Vendor': 'Yan Qian',
