@@ -489,9 +489,9 @@ Any characters mapping to `null` in *tmap* will also be deleted.
 ```java
 import static com.lambeta.Underscorestring.translate;
 
-translate("ababa", new HashMap<Character, Character>(){{put('a', 'b');}});
+translate("ababa", Map.of('a', 'b'));
 // -> "bbbbb"
-translate("ababa", new HashMap<Character, Character>(){{put('a', 'b');}}, new HashSet<Character>(){{add('b');}});
+translate("ababa", Map.of('a', 'b'), Set.of('b'));
 // -> "bbb"
 ```
 ### mixedCase
