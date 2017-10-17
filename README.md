@@ -13,7 +13,7 @@ More details in [Release Notes](doc/ReleaseNotes.md)
 
 [sync gitee repo](https://gitee.com/lambeta/underscore.string.java)
 ## Prerequisites
-* java = 1.9
+* java 1.9
 * guava 18.0
 
 ## Installation
