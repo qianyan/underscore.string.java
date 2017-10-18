@@ -7,6 +7,7 @@ import com.google.common.collect.Sets;
 import com.google.common.primitives.Chars;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.util.*;
@@ -34,7 +35,7 @@ public class UnderscoreString {
     }
 
     private static String onCapitalize(String word, boolean on) {
-        String trimWord = word.trim();
+        String trimWord = nullToEmpty(word).trim();
         return trimWord.isEmpty()
                 ? trimWord
                 : String.valueOf(on ? Ascii.toUpperCase(trimWord.charAt(0)) : Ascii.toLowerCase(trimWord.charAt(0))) +
@@ -50,27 +51,27 @@ public class UnderscoreString {
     }
 
     public static String trim(String word, String match) {
-        return CharMatcher.anyOf(match).trimFrom(word);
+        return CharMatcher.anyOf(match).trimFrom(nullToEmpty(word));
     }
 
     public static String trim(String word) {
-        return CharMatcher.WHITESPACE.trimFrom(word);
+        return CharMatcher.WHITESPACE.trimFrom(nullToEmpty(word));
     }
 
     public static String ltrim(String word) {
-        return CharMatcher.WHITESPACE.trimLeadingFrom(word);
+        return CharMatcher.WHITESPACE.trimLeadingFrom(nullToEmpty(word));
     }
 
     public static String ltrim(String word, String match) {
-        return CharMatcher.anyOf(match).trimLeadingFrom(word);
+        return CharMatcher.anyOf(match).trimLeadingFrom(nullToEmpty(word));
     }
 
     public static String rtrim(String word) {
-        return CharMatcher.WHITESPACE.trimTrailingFrom(word);
+        return CharMatcher.WHITESPACE.trimTrailingFrom(nullToEmpty(word));
     }
 
     public static String rtrim(String word, String match) {
-        return CharMatcher.anyOf(match).trimTrailingFrom(word);
+        return CharMatcher.anyOf(match).trimTrailingFrom(nullToEmpty(word));
     }
 
     public static String repeat(String word) {
@@ -82,7 +83,8 @@ public class UnderscoreString {
     }
 
     public static <T> String repeat(String word, int count, T insert) {
-        String repeat = repeat(word + insert, count);
+        String w = nullToEmpty(word);
+        String repeat = repeat(w + insert, count);
         return repeat.substring(0, repeat.length() - insert.toString().length());
     }
 
@@ -95,7 +97,7 @@ public class UnderscoreString {
     }
 
     public static String reverse(String word) {
-        return new StringBuilder(word).reverse().toString();
+        return new StringBuilder(nullToEmpty(word)).reverse().toString();
     }
 
     public static String clean(String word) {
@@ -104,12 +106,15 @@ public class UnderscoreString {
 
     public static String[] chop(String word, int fixedLength) {
         Preconditions.checkArgument(fixedLength >= 0, "fixedLength must greater than or equal to zero");
-        if (fixedLength == 0) return new String[]{word};
-        return toArray(fixedLength(fixedLength).split(word), String.class);
+        String w = nullToEmpty(word);
+        if (fixedLength == 0) {
+            return new String[]{w};
+        }
+        return toArray(fixedLength(fixedLength).split(w), String.class);
     }
 
     public static String splice(String word, int start, int length, String replacement) {
-        return new StringBuilder(word).replace(start, start + length, replacement).toString();
+        return new StringBuilder(nullToEmpty(word)).replace(start, start + length, replacement).toString();
     }
 
     public static char pred(char ch) {
@@ -121,12 +126,12 @@ public class UnderscoreString {
     }
 
     public static String titleize(String sentence) {
-        String trimedSentence = trim(sentence);
+        String trimSentence = trim(nullToEmpty(sentence));
         StringBuilder sb = new StringBuilder();
-        int length = trimedSentence.length();
+        int length = trimSentence.length();
         boolean capitalizeNext = true;
         for (int i = 0; i < length; i++) {
-            char c = trimedSentence.charAt(i);
+            char c = trimSentence.charAt(i);
             if (CharMatcher.anyOf("_- ").matches(c)) {
                 sb.append(c);
                 capitalizeNext = true;
@@ -141,16 +146,16 @@ public class UnderscoreString {
     }
 
     public static String camelize(String sentence) {
-        return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, CharMatcher.anyOf("- ").collapseFrom(trim(sentence), '_'));
+        return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, CharMatcher.anyOf("- ").collapseFrom(trim(nullToEmpty(sentence)), '_'));
     }
 
     public static String dasherize(String sentence) {
-        String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_HYPHEN, CharMatcher.WHITESPACE.collapseFrom(trim(replaceZeroWidthDelimiterWith(sentence, "_")), '-'));
+        String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_HYPHEN, CharMatcher.WHITESPACE.collapseFrom(trim(replaceZeroWidthDelimiterWith(nullToEmpty(sentence), "_")), '-'));
         return cleanBy(to, '-');
     }
 
     public static String underscored(String sentence) {
-        String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_UNDERSCORE, CharMatcher.anyOf("- ").collapseFrom(replaceZeroWidthDelimiterWith(trim(sentence), "_"), '_'));
+        String to = CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.LOWER_UNDERSCORE, CharMatcher.anyOf("- ").collapseFrom(replaceZeroWidthDelimiterWith(trim(nullToEmpty(sentence)), "_"), '_'));
         return cleanBy(to, '_');
     }
 
@@ -163,7 +168,9 @@ public class UnderscoreString {
     }
 
     public static String surround(String word, String wrap) {
-        return format("%s%s%s", wrap, word, wrap);
+        String wr = nullToEmpty(wrap);
+        String w = nullToEmpty(word);
+        return format("%s%s%s", wr, w, wr);
     }
 
     public static String quote(String word) {
@@ -171,7 +178,7 @@ public class UnderscoreString {
     }
 
     public static String unquote(String word) {
-        return unquote(word, '"');
+        return unquote(nullToEmpty(word), '"');
     }
 
     public static String unquote(String word, char match) {
@@ -186,29 +193,40 @@ public class UnderscoreString {
     }
 
     public static String numberFormat(double number, int scale) {
-        return NumberFormat.getInstance().format(new BigDecimal(number).setScale(scale, 3));
+        return NumberFormat.getInstance().format(new BigDecimal(number).setScale(scale, RoundingMode.FLOOR));
     }
 
     public static String strRight(String sentence, String separator) {
-        return sentence.substring(sentence.indexOf(separator) + separator.length());
+        if (isNullOrEmpty(separator)) {
+            return sentence;
+        }
+        String s = nullToEmpty(sentence);
+        return s.substring(s.indexOf(separator) + separator.length());
     }
 
     public static String strRightBack(String sentence, String separator) {
         if (isNullOrEmpty(separator)) {
             return sentence;
         }
-        return sentence.substring(sentence.lastIndexOf(separator) + separator.length());
+        String s = nullToEmpty(sentence);
+
+        return s.substring(s.lastIndexOf(separator) + separator.length());
     }
 
     public static String strLeft(String sentence, String separator) {
         if (isNullOrEmpty(separator)) {
             return sentence;
         }
-        return strLeftFrom(sentence, sentence.indexOf(separator));
+        String s = nullToEmpty(sentence);
+        return strLeftFrom(s, s.indexOf(separator));
     }
 
     public static String strLeftBack(String sentence, String separator) {
-        return strLeftFrom(sentence, sentence.lastIndexOf(separator));
+        if (isNullOrEmpty(separator)) {
+            return sentence;
+        }
+        String s = nullToEmpty(sentence);
+        return strLeftFrom(s, s.lastIndexOf(separator));
     }
 
     private static String strLeftFrom(String sentence, int index) {
@@ -220,11 +238,11 @@ public class UnderscoreString {
     }
 
     private static String replace(String sentence, char from, char to) {
-        return CharMatcher.anyOf(String.valueOf(from)).replaceFrom(sentence, to);
+        return CharMatcher.anyOf(String.valueOf(from)).replaceFrom(nullToEmpty(sentence), to);
     }
 
     public static String replaceZeroWidthDelimiterWith(String sentence, String replacement) {
-        return sentence.replaceAll(format("%s|%s|%s",
+        return nullToEmpty(sentence).replaceAll(format("%s|%s|%s",
                 "(?<=[A-Z])(?=[A-Z][a-z])",
                 "(?<=[^A-Z])(?=[A-Z])",
                 "(?<=[A-Za-z])(?=[^A-Za-z])"), replacement);
@@ -239,8 +257,9 @@ public class UnderscoreString {
     }
 
     public static int count(String sentence, String find) {
-        int nonReplacedLength = sentence.length();
-        int length = sentence.replace(find, "").length();
+        String s = nullToEmpty(sentence);
+        int nonReplacedLength = s.length();
+        int length = s.replace(find, "").length();
         return (nonReplacedLength - length) / find.length();
     }
 
@@ -275,16 +294,17 @@ public class UnderscoreString {
     }
 
     public static String[] words(String sentence) {
-        return Iterables.toArray(Splitter.on(CharMatcher.WHITESPACE).split(CharMatcher.anyOf(" _-").collapseFrom(sentence, ' ')), String.class);
+        return Iterables.toArray(Splitter.on(CharMatcher.WHITESPACE).split(CharMatcher.anyOf(" _-").collapseFrom(nullToEmpty(sentence), ' ')), String.class);
     }
 
     public static String prune(String sentence, int count) {
-        if (sentence.length() <= count) {
-            return sentence;
+        String st = nullToEmpty(sentence);
+        if (st.length() <= count) {
+            return st;
         }
-        String[] words = words(sentence);
+        String[] words = words(st);
         if (words.length == 1) {
-            return sentence;
+            return st;
         }
 
         int rest = count;
@@ -301,7 +321,7 @@ public class UnderscoreString {
                 return on(' ').join(target);
             }
         }
-        return sentence;
+        return st;
     }
 
     public static boolean isBlank(String s) {
@@ -435,7 +455,7 @@ public class UnderscoreString {
     }
 
     public static String stripAccents(String s) {
-        return Normalizer.normalize(s, Normalizer.Form.NFD).replaceAll("\\p{InCOMBINING_DIACRITICAL_MARKS}+", "");
+        return Normalizer.normalize(nullToEmpty(s), Normalizer.Form.NFD).replaceAll("\\p{InCOMBINING_DIACRITICAL_MARKS}+", "");
     }
 
     public static String pascalize(String s) {
@@ -472,12 +492,13 @@ public class UnderscoreString {
     }
 
     public static Optional<String> mixedCase(String s) {
-        boolean isMixedCase = CharMatcher.JAVA_LOWER_CASE.matchesAnyOf(s) && CharMatcher.JAVA_UPPER_CASE.matchesAnyOf(s);
-        return isMixedCase ? Optional.of(s) : Optional.<String>absent();
+        String ss = nullToEmpty(s);
+        boolean isMixedCase = CharMatcher.JAVA_LOWER_CASE.matchesAnyOf(ss) && CharMatcher.JAVA_UPPER_CASE.matchesAnyOf(ss);
+        return isMixedCase ? Optional.of(ss) : Optional.<String>absent();
     }
 
     public static String collapseWhitespaces(String s) {
-        return CharMatcher.WHITESPACE.collapseFrom(s, ' ');
+        return CharMatcher.WHITESPACE.collapseFrom(nullToEmpty(s), ' ');
     }
 
     public static Optional<String> ascii(String s) {
@@ -518,7 +539,7 @@ public class UnderscoreString {
     }
 
     public static boolean startsWith(String s, String prefix) {
-        return startsWith(s, prefix, false);
+        return startsWith(nullToEmpty(s), prefix, false);
     }
 
     public static boolean startsWith(String s, String prefix, boolean ignoreCase) {
@@ -526,7 +547,7 @@ public class UnderscoreString {
     }
 
     public static boolean endsWith(String s, String suffix) {
-        return endsWith(s, suffix, false);
+        return endsWith(nullToEmpty(s), suffix, false);
     }
 
     public static boolean endsWith(String s, String suffix, boolean ignoreCase) {
