@@ -278,24 +278,32 @@ public class UnderscoreStringTest {
 
     @Test
     public void lpad() throws Exception {
+        assertThat(UnderscoreString.lpad(null, 8), is("        "));
+        assertThat(UnderscoreString.lpad("", 8), is("        "));
         assertThat(UnderscoreString.lpad("Hello", 8), is("   Hello"));
         assertThat(UnderscoreString.lpad("Hello", 8, '-'), is("---Hello"));
     }
 
     @Test
     public void rpad() throws Exception {
+        assertThat(UnderscoreString.rpad(null, 8), is("        "));
+        assertThat(UnderscoreString.rpad("", 8), is("        "));
         assertThat(UnderscoreString.rpad("Hello", 8), is("Hello   "));
         assertThat(UnderscoreString.rpad("Hello", 8, '-'), is("Hello---"));
     }
 
     @Test
     public void lrpad() throws Exception {
+        assertThat(UnderscoreString.lrpad(null, 8), is("        "));
+        assertThat(UnderscoreString.lrpad("", 8), is("        "));
         assertThat(UnderscoreString.lrpad("1", 8), is("    1   "));
         assertThat(UnderscoreString.lrpad("1", 8, '-'), is("----1---"));
     }
 
     @Test
     public void words() throws Exception {
+        assertThat(UnderscoreString.words(null), is(_a("")));
+        assertThat(UnderscoreString.words(""), is(_a("")));
         assertThat(UnderscoreString.words("I love you!"), is(_a("I", "love", "you!")));
         assertThat(UnderscoreString.words("I    love   you!"), is(_a("I", "love", "you!")));
         assertThat(UnderscoreString.words("I_love_you!"), is(_a("I", "love", "you!")));
@@ -305,6 +313,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void prune() throws Exception {
+        assertThat(UnderscoreString.prune(null, 1), is(""));
+        assertThat(UnderscoreString.prune("", 1), is(""));
         assertThat(UnderscoreString.prune("hello, world", 5), is("hello..."));
         assertThat(UnderscoreString.prune("hello, world", 13), is("hello, world"));
         assertThat(UnderscoreString.prune("hello, world world", 17), is("hello, world..."));
@@ -342,6 +352,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void swapCase() throws Exception {
+        assertThat(UnderscoreString.swapCase(null), is(""));
+        assertThat(UnderscoreString.swapCase(""), is(""));
         assertThat(UnderscoreString.swapCase("AaBbCcDdEe"), is("aAbBcCdDeE"));
         assertThat(UnderscoreString.swapCase("Hello World"), is("hELLO wORLD"));
         assertThat(UnderscoreString.swapCase("ß"), is("SS"));
@@ -380,6 +392,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void dedent() throws Exception {
+        assertThat(UnderscoreString.dedent(null), is(""));
+        assertThat(UnderscoreString.dedent(""), is(""));
         assertThat(UnderscoreString.dedent("Hello\nWorld"), is("Hello\nWorld"));
         assertThat(UnderscoreString.dedent("    Hello\n  World"), is("  Hello\nWorld"));
         assertThat(UnderscoreString.dedent("  Hello\nWorld"), is("  Hello\nWorld"));
@@ -414,6 +428,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void screamingUnderscored() throws Exception {
+        assertThat(UnderscoreString.screamingUnderscored(null), is(""));
+        assertThat(UnderscoreString.screamingUnderscored(""), is(""));
         assertThat(UnderscoreString.screamingUnderscored("the-underscored-string-method"), is("THE_UNDERSCORED_STRING_METHOD"));
         assertThat(UnderscoreString.screamingUnderscored("theUnderscoredStringMethod"), is("THE_UNDERSCORED_STRING_METHOD"));
         assertThat(UnderscoreString.screamingUnderscored("TheUnderscoredStringMethod"), is("THE_UNDERSCORED_STRING_METHOD"));
@@ -425,12 +441,16 @@ public class UnderscoreStringTest {
 
     @Test
     public void stripAccents() throws Exception {
+        assertThat(UnderscoreString.stripAccents(null), is(""));
+        assertThat(UnderscoreString.stripAccents(""), is(""));
         assertThat(UnderscoreString.stripAccents("Et ça sera sa moitié"), is("Et ca sera sa moitie"));
         assertThat(UnderscoreString.stripAccents("ąàáäâãåæăćčĉęèéëêĝĥìíïîĵľńňòóöőôõøśșšŝťțŭùúüűûñÿýçżźž"), is("aaaaaaaæaccceeeeeghiiiijlnnooooooøssssttuuuuuunyyczzz"));
     }
 
     @Test
     public void pascalize() throws Exception {
+        assertThat(UnderscoreString.pascalize(null), is(""));
+        assertThat(UnderscoreString.pascalize(""), is(""));
         assertThat(UnderscoreString.pascalize("PascalCase"), is("PascalCase"));
         assertThat(UnderscoreString.pascalize("setID"), is("SetId"));
         assertThat(UnderscoreString.pascalize("HTTPRequest"), is("HttpRequest"));
@@ -449,6 +469,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void mixedCase() throws Exception {
+        assertFalse(UnderscoreString.mixedCase(null).isPresent());
+        assertFalse(UnderscoreString.mixedCase("").isPresent());
         assertFalse(UnderscoreString.mixedCase("1AB").isPresent());
         assertTrue(UnderscoreString.mixedCase("1aB").isPresent());
         assertThat(UnderscoreString.mixedCase("1aB").get(), is("1aB"));
@@ -459,6 +481,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void collapseWhitespaces() throws Exception {
+        assertThat(UnderscoreString.collapseWhitespaces(null), is(""));
+        assertThat(UnderscoreString.collapseWhitespaces(""), is(""));
         assertThat(UnderscoreString.collapseWhitespaces("foo    bar    baz"), is("foo bar baz"));
         assertThat(UnderscoreString.collapseWhitespaces("  foo    bar    baz  "), is(" foo bar baz "));
     }

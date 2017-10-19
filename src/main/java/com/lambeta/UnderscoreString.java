@@ -273,7 +273,7 @@ public class UnderscoreString {
     }
 
     public static String lpad(String sentence, int count, char ch) {
-        return Strings.padStart(sentence, count, ch);
+        return Strings.padStart(nullToEmpty(sentence), count, ch);
     }
 
     public static String rpad(String sentence, int count) {
@@ -281,7 +281,7 @@ public class UnderscoreString {
     }
 
     public static String rpad(String sentence, int count, char ch) {
-        return Strings.padEnd(sentence, count, ch);
+        return Strings.padEnd(nullToEmpty(sentence), count, ch);
     }
 
     public static String lrpad(String sentence, int count) {
@@ -289,8 +289,9 @@ public class UnderscoreString {
     }
 
     public static String lrpad(String sentence, int count, char ch) {
-        int padEnd = (count - sentence.length()) / 2;
-        return rpad(lpad(sentence, count - padEnd, ch), count, ch);
+        String s = nullToEmpty(sentence);
+        int padEnd = (count - s.length()) / 2;
+        return rpad(lpad(s, count - padEnd, ch), count, ch);
     }
 
     public static String[] words(String sentence) {
