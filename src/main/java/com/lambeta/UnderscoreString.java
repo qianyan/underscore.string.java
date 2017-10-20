@@ -178,10 +178,11 @@ public class UnderscoreString {
     }
 
     public static String unquote(String word) {
-        return unquote(nullToEmpty(word), '"');
+        return unquote(word, '"');
     }
 
     public static String unquote(String word, char match) {
+        checkArgument(word.length() >= 2, "The length of str should be greater or equal to two because of being quoted");
         if (word.charAt(0) == match && word.charAt(word.length() - 1) == match) {
             return word.substring(1, word.length() - 1);
         }
@@ -248,15 +249,20 @@ public class UnderscoreString {
                 "(?<=[A-Za-z])(?=[^A-Za-z])"), replacement);
     }
 
-    public static String toSentence(String[] strings) {
-        checkNotNull(strings, "words should not be null");
+    public static String toSentence(String[] words) {
+        checkNotNull(words, "words should not be null");
+        checkArgument(words.length >= 1, "words should not be empty");
 
-        String lastOne = strings[strings.length - 1];
-        strings[strings.length - 1] = null;
-        return on(", ").skipNulls().join(strings) + " and " + lastOne;
+        String word = words[words.length - 1];
+        String lastOne = (word == null || word.isEmpty()) ? "" : " and " + word;
+        words[words.length - 1] = null;
+
+        return on(", ").skipNulls().join(words) + lastOne;
     }
 
     public static int count(String sentence, String find) {
+        checkNotNull(find, "The str to find should not be null");
+        checkArgument(!find.isEmpty(), "The str to find should not be empty");
         String s = nullToEmpty(sentence);
         int nonReplacedLength = s.length();
         int length = s.replace(find, "").length();
@@ -264,8 +270,9 @@ public class UnderscoreString {
     }
 
     public static String truncate(String sentence, int position, String pad) {
-        checkState(sentence.length() >= position);
-        return splice(sentence, position, sentence.length() - position + 1, pad);
+        String s = nullToEmpty(sentence);
+        checkState(s.length() >= position);
+        return splice(s, position, s.length() - position + 1, pad);
     }
 
     public static String lpad(String sentence, int count) {
@@ -434,21 +441,25 @@ public class UnderscoreString {
     }
 
     public static String chopPrefix(String s, String prefix) {
-        return s.startsWith(prefix) ? s.substring(prefix.length()) : s;
+        String ss = nullToEmpty(s);
+        return ss.startsWith(prefix) ? ss.substring(prefix.length()) : ss;
     }
 
     public static String chopPrefix(String s, String prefix, boolean ignoreCase) {
-        boolean prefixIgnoreCase = ignoreCase && s.toLowerCase().startsWith(prefix.toLowerCase());
-        return prefixIgnoreCase ? s.substring(prefix.length()) : chopPrefix(s, prefix);
+        String ss = nullToEmpty(s);
+        boolean prefixIgnoreCase = ignoreCase && ss.toLowerCase().startsWith(prefix.toLowerCase());
+        return prefixIgnoreCase ? ss.substring(prefix.length()) : chopPrefix(ss, prefix);
     }
 
     public static String chopSuffix(String s, String suffix) {
-        return s.endsWith(suffix) ? s.substring(0, s.length() - suffix.length()) : s;
+        String ss = nullToEmpty(s);
+        return ss.endsWith(suffix) ? ss.substring(0, ss.length() - suffix.length()) : ss;
     }
 
     public static String chopSuffix(String s, String suffix, boolean ignoreCase) {
-        boolean suffixIgnoreCase = ignoreCase && s.toLowerCase().endsWith(suffix.toLowerCase());
-        return suffixIgnoreCase ? s.substring(0, s.length() - suffix.length()) : chopSuffix(s, suffix);
+        String ss = nullToEmpty(s);
+        boolean suffixIgnoreCase = ignoreCase && ss.toLowerCase().endsWith(suffix.toLowerCase());
+        return suffixIgnoreCase ? ss.substring(0, ss.length() - suffix.length()) : chopSuffix(ss, suffix);
     }
 
     public static String screamingUnderscored(String s) {

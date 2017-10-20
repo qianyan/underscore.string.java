@@ -18,18 +18,34 @@ public class UnderscoreStringTest {
 
     @Test
     public void slugify() throws Exception {
+        assertThat(UnderscoreString.slugify(""), is(""));
+        assertThat(UnderscoreString.slugify(null), is(""));
         assertThat(UnderscoreString.slugify(" hello World!"), is("hello-world"));
         assertThat(UnderscoreString.slugify("Un éléphant àß l\'orée du bois"), is("un-elephant-ass-l-oree-du-bois"));
     }
 
     @Test
     public void count() throws Exception {
+        assertThat(UnderscoreString.count("", "l"), is(0));
+        assertThat(UnderscoreString.count(null, "l"), is(0));
         assertThat(UnderscoreString.count("Hello world", "l"), is(3));
         assertThat(UnderscoreString.count("Hello world", "Hello"), is(1));
     }
 
+    @Test(expected = NullPointerException.class)
+    public void null_to_find_str_should_throw_exception_with_count() throws Exception {
+        UnderscoreString.count("hello", null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void empty_to_find_str_should_throw_exception_with_count() throws Exception {
+        UnderscoreString.count("hello", "");
+    }
+
     @Test
     public void trim() throws Exception {
+        assertThat(UnderscoreString.trim(null), is(""));
+        assertThat(UnderscoreString.trim(""), is(""));
         assertThat(UnderscoreString.trim(" foo "), is("foo"));
         assertThat(UnderscoreString.trim("foo", "f"), is("oo"));
         assertThat(UnderscoreString.trim("fooff", "f"), is("oo"));
@@ -38,6 +54,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void ltrim() throws Exception {
+        assertThat(UnderscoreString.ltrim(null), is(""));
+        assertThat(UnderscoreString.ltrim(""), is(""));
         assertThat(UnderscoreString.ltrim(" foo"), is("foo"));
         assertThat(UnderscoreString.ltrim(" foo "), is("foo "));
         assertThat(UnderscoreString.ltrim("foof", "f"), is("oof"));
@@ -46,6 +64,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void rtrim() throws Exception {
+        assertThat(UnderscoreString.rtrim(null), is(""));
+        assertThat(UnderscoreString.rtrim(""), is(""));
         assertThat(UnderscoreString.rtrim("foo "), is("foo"));
         assertThat(UnderscoreString.rtrim(" foo "), is(" foo"));
         assertThat(UnderscoreString.rtrim("foof", "f"), is("foo"));
@@ -65,6 +85,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void decapitalize() throws Exception {
+        assertThat(UnderscoreString.decapitalize(null), is(""));
+        assertThat(UnderscoreString.decapitalize(""), is(""));
         assertThat(UnderscoreString.decapitalize(" Hello "), is("hello"));
         assertThat(UnderscoreString.decapitalize("HELLO"), is("hELLO"));
     }
@@ -77,17 +99,23 @@ public class UnderscoreStringTest {
 
     @Test
     public void reverse() throws Exception {
+        assertThat(UnderscoreString.reverse(null), is(""));
+        assertThat(UnderscoreString.reverse(""), is(""));
         assertThat(UnderscoreString.reverse("foo"), is("oof"));
         assertThat(UnderscoreString.reverse("saippuakauppias"), is("saippuakauppias"));
     }
 
     @Test
     public void clean() throws Exception {
+        assertThat(UnderscoreString.clean(null), is(""));
+        assertThat(UnderscoreString.clean(""), is(""));
         assertThat(UnderscoreString.clean(" foo    bar   "), is("foo bar"));
     }
 
     @Test
     public void chop() throws Exception {
+        assertThat(UnderscoreString.chop(null, 2), is(_a("")));
+        assertThat(UnderscoreString.chop("", 2), is(_a("")));
         assertThat(UnderscoreString.chop("whitespace", 2), is(_a("wh", "it", "es", "pa", "ce")));
         assertThat(UnderscoreString.chop("whitespace", 3), is(_a("whi", "tes", "pac", "e")));
         assertThat(UnderscoreString.chop("whitespace", 0), is(_a("whitespace")));
@@ -95,25 +123,35 @@ public class UnderscoreStringTest {
 
     @Test
     public void chopPrefix() throws Exception {
+        assertThat(UnderscoreString.chopPrefix(null, "foo"), is(""));
+        assertThat(UnderscoreString.chopPrefix("", "foo"), is(""));
         assertThat(UnderscoreString.chopPrefix("foo", "foo"), is(""));
         assertThat(UnderscoreString.chopPrefix("foobar", "foo"), is("bar"));
         assertThat(UnderscoreString.chopPrefix(" foo", " "), is("foo"));
         assertThat(UnderscoreString.chopPrefix("foo", "FOO"), is("foo"));
         assertThat(UnderscoreString.chopPrefix("foo", "FOO", true), is(""));
+        assertThat(UnderscoreString.chopPrefix(null, "FOO", true), is(""));
+        assertThat(UnderscoreString.chopPrefix("", "FOO", true), is(""));
         assertThat(UnderscoreString.chopPrefix("Åfoo", "Å", true), is("foo"));
     }
 
     @Test
     public void chopSuffix() throws Exception {
+        assertThat(UnderscoreString.chopSuffix(null, "foo"), is(""));
+        assertThat(UnderscoreString.chopSuffix("", "foo"), is(""));
         assertThat(UnderscoreString.chopSuffix("foo", "foo"), is(""));
         assertThat(UnderscoreString.chopSuffix("foobar", "bar"), is("foo"));
         assertThat(UnderscoreString.chopSuffix("foo", "FOO"), is("foo"));
+        assertThat(UnderscoreString.chopSuffix(null, "FOO", true), is(""));
+        assertThat(UnderscoreString.chopSuffix("", "FOO", true), is(""));
         assertThat(UnderscoreString.chopSuffix("foo", "FOO", true), is(""));
         assertThat(UnderscoreString.chopSuffix("foo", "O", true), is("fo"));
     }
 
     @Test
     public void splice() throws Exception {
+        assertThat(UnderscoreString.splice(null, 0, 0, ""), is(""));
+        assertThat(UnderscoreString.splice("", 0, 0, ""), is(""));
         assertThat(UnderscoreString.splice("whitespace", 5, 5, "shift"), is("whiteshift"));
         assertThat(UnderscoreString.splice(
                 "https://edtsech@bitbucket.org/edtsech/underscore.strings", 30, 7, "epeli"),
@@ -140,6 +178,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void titleize() throws Exception {
+        assertThat(UnderscoreString.titleize(null), is(""));
+        assertThat(UnderscoreString.titleize(""), is(""));
         assertThat(UnderscoreString.titleize("the titleize string method"), is("The Titleize String Method"));
         assertThat(UnderscoreString.titleize("a-dash-separated-string"), is("A-Dash-Separated-String"));
         assertThat(UnderscoreString.titleize("a_dash_separated_string"), is("A_Dash_Separated_String"));
@@ -148,6 +188,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void camelize() throws Exception {
+        assertThat(UnderscoreString.camelize(null), is(""));
+        assertThat(UnderscoreString.camelize(""), is(""));
         assertThat(UnderscoreString.camelize("the_camelize_string_method"), is("theCamelizeStringMethod"));
         assertThat(UnderscoreString.camelize("the_camelize___string_method"), is("theCamelizeStringMethod"));
         assertThat(UnderscoreString.camelize("webkit-transform"), is("webkitTransform"));
@@ -159,6 +201,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void dasherize() throws Exception {
+        assertThat(UnderscoreString.dasherize(null), is(""));
+        assertThat(UnderscoreString.dasherize(""), is(""));
         assertThat(UnderscoreString.dasherize("the_dasherize_string_method"), is("the-dasherize-string-method"));
         assertThat(UnderscoreString.dasherize("TheDasherizeStringMethod"), is("the-dasherize-string-method"));
         assertThat(UnderscoreString.dasherize("The_Dasherize-String_-Method"), is("the-dasherize-string-method"));
@@ -168,6 +212,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void underscored() throws Exception {
+        assertThat(UnderscoreString.underscored(null), is(""));
+        assertThat(UnderscoreString.underscored(""), is(""));
         assertThat(UnderscoreString.underscored("the-underscored-string-method"), is("the_underscored_string_method"));
         assertThat(UnderscoreString.underscored("theUnderscoredStringMethod"), is("the_underscored_string_method"));
         assertThat(UnderscoreString.underscored("TheUnderscoredStringMethod"), is("the_underscored_string_method"));
@@ -176,12 +222,16 @@ public class UnderscoreStringTest {
 
     @Test
     public void classify() throws Exception {
+        assertThat(UnderscoreString.classify(null), is(""));
+        assertThat(UnderscoreString.classify(""), is(""));
         assertThat(UnderscoreString.classify("some_class_name"), is("SomeClassName"));
         assertThat(UnderscoreString.classify("my wonderfull class_name"), is("MyWonderfullClassName"));
     }
 
     @Test
     public void humanize() throws Exception {
+        assertThat(UnderscoreString.humanize(null), is(""));
+        assertThat(UnderscoreString.humanize(""), is(""));
         assertThat(UnderscoreString.humanize("the humanize string method"), is("The humanize string method"));
         assertThat(UnderscoreString.humanize("the_humanize_string_method"), is("The humanize string method"));
         assertThat(UnderscoreString.humanize("TheHumanizeStringMethod"), is("The humanize string method"));
@@ -190,6 +240,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void replaceZeroLengthMatcherWith() throws Exception {
+        assertThat(UnderscoreString.replaceZeroWidthDelimiterWith(null, " "), is(""));
+        assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("", " "), is(""));
         assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("GL11Version", " "), is("GL 11 Version"));
         assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("May9", " "), is("May 9"));
         assertThat(UnderscoreString.replaceZeroWidthDelimiterWith("lowercase", " "), is("lowercase"));
@@ -204,6 +256,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void surround() throws Exception {
+        assertThat(UnderscoreString.surround(null, "\""), is("\"\""));
+        assertThat(UnderscoreString.surround("", "\""), is("\"\""));
         assertThat(UnderscoreString.surround("'", "\""), is("\"'\""));
         assertThat(UnderscoreString.surround("foo", "|"), is("|foo|"));
         assertThat(UnderscoreString.surround("foo", ""), is("foo"));
@@ -211,15 +265,23 @@ public class UnderscoreStringTest {
 
     @Test
     public void quote() throws Exception {
+        assertThat(UnderscoreString.quote(null), is("\"\""));
+        assertThat(UnderscoreString.quote(""), is("\"\""));
         assertThat(UnderscoreString.quote("foo"), is("\"foo\""));
         assertThat(UnderscoreString.quote("\"foo\""), is("\"\"foo\"\""));
     }
 
     @Test
     public void unquote() throws Exception {
+        assertThat(UnderscoreString.unquote("\"foo"), is("\"foo"));
         assertThat(UnderscoreString.unquote("\"foo\""), is("foo"));
         assertThat(UnderscoreString.unquote("\"\"foo\"\""), is("\"foo\""));
         assertThat(UnderscoreString.unquote("'foo'", '\''), is("foo"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void to_unquote_str_shorter_than_two_should_throw_exception() throws Exception {
+        UnderscoreString.unquote("");
     }
 
     @Test
@@ -232,6 +294,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void strRight() throws Exception {
+        assertThat(UnderscoreString.strRight(null, "_"), is(""));
+        assertThat(UnderscoreString.strRight("", "_"), is(""));
         assertThat(UnderscoreString.strRight("This_is_a_test_string", "_"), is("is_a_test_string"));
         assertThat(UnderscoreString.strRight("This_is_a_test_string", "string"), is(""));
         assertThat(UnderscoreString.strRight("This_is_a_test_string", ""), is("This_is_a_test_string"));
@@ -240,6 +304,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void strRightBack() throws Exception {
+        assertThat(UnderscoreString.strRightBack(null, "_"), is(""));
+        assertThat(UnderscoreString.strRightBack("", "_"), is(""));
         assertThat(UnderscoreString.strRightBack("This_is_a_test_string", "_"), is("string"));
         assertThat(UnderscoreString.strRightBack("This_is_a_test_string", "string"), is(""));
         assertThat(UnderscoreString.strRightBack("This_is_a_test_string", ""), is("This_is_a_test_string"));
@@ -248,6 +314,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void strLeft() throws Exception {
+        assertThat(UnderscoreString.strLeft(null, "_"), is(""));
+        assertThat(UnderscoreString.strLeft("", "_"), is(""));
         assertThat(UnderscoreString.strLeft("This_is_a_test_string", "_"), is("This"));
         assertThat(UnderscoreString.strLeft("This_is_a_test_string", "This"), is(""));
         assertThat(UnderscoreString.strLeft("This_is_a_test_string", ""), is("This_is_a_test_string"));
@@ -256,6 +324,8 @@ public class UnderscoreStringTest {
 
     @Test
     public void strLeftBack() throws Exception {
+        assertThat(UnderscoreString.strLeftBack(null, "_"), is(""));
+        assertThat(UnderscoreString.strLeftBack("", "_"), is(""));
         assertThat(UnderscoreString.strLeftBack("This_is_a_test_string", "_"), is("This_is_a_test"));
         assertThat(UnderscoreString.strLeftBack("This_is_a_test_string", "This"), is(""));
         assertThat(UnderscoreString.strLeftBack("This_is_a_test_string", ""), is("This_is_a_test_string"));
@@ -264,14 +334,23 @@ public class UnderscoreStringTest {
 
     @Test
     public void toSentence() throws Exception {
+        assertThat(UnderscoreString.toSentence(new String[]{null}), is(""));
+        assertThat(UnderscoreString.toSentence(_a("")), is(""));
         assertThat(UnderscoreString.toSentence(_a("Hello", "Welcome")), is("Hello and Welcome"));
         assertThat(UnderscoreString.toSentence(_a("Hello", "Welcome", "good morning")), is("Hello, Welcome and good morning"));
         assertThat(UnderscoreString.toSentence(_a("Hello", "Welcome", "good morning", "good morning")),
                 is("Hello, Welcome, good morning and good morning"));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void empty_args_should_throw_exception_with_toSentence() throws Exception {
+        UnderscoreString.toSentence(new String[]{});
+    }
+
     @Test
     public void truncate() throws Exception {
+        assertThat(UnderscoreString.truncate(null, 0, "..."), is("..."));
+        assertThat(UnderscoreString.truncate("", 0, "..."), is("..."));
         assertThat(UnderscoreString.truncate("Hello World", 5, "..."), is("Hello..."));
         assertThat(UnderscoreString.truncate("Hello", 5, ""), is("Hello"));
     }
