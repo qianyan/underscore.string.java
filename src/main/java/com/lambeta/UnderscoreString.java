@@ -400,7 +400,7 @@ public class UnderscoreString {
     }
 
     private static String[] reseq(Matcher matcher) {
-        ArrayList<String> tokens = new ArrayList<>();
+        ArrayList<String> tokens = new ArrayList<String>();
         while (matcher.find()) {
             tokens.add(matcher.group());
         }

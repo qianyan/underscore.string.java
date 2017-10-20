@@ -634,12 +634,10 @@ public class UnderscoreStringTest {
         assertThat(UnderscoreString.longestCommonSubstring("", null), is(UnderscoreStringTest.<String>_s()));
     }
 
-    @SafeVarargs
     private static <T> T[] _a(T... args) {
         return args;
     }
 
-    @SafeVarargs
     private static <T> Set<T> _s(T... args) {
         return Sets.newHashSet(args);
     }
