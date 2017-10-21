@@ -14,7 +14,7 @@ More details in [Release Notes](doc/ReleaseNotes.md)
 
 [sync gitee repo](https://gitee.com/lambeta/underscore.string.java)
 ## Prerequisites
-* java >= 1.6
+* java >= 1.7
 * guava 18.0
 
 ## Installation
