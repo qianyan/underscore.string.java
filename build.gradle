@@ -12,6 +12,9 @@ repositories {
     mavenCentral()
 }
 
+sourceCompatibility = 1.9
+targetCompatibility = 1.9
+
 group = 'com.lambeta'
 version = '0.2.1-SNAPSHOT'
 
